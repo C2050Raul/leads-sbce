@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leads Setor Público — Climate Compliance 2050</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --teal-dark: #04342C; --teal-mid: #0F6E56; --teal-light: #1D9E75; --teal-pale: #E1F5EE;
+    --blue-dark: #185FA5; --blue-pale: #E6F1FB;
+    --amber-dark: #854F0B; --amber-pale: #FAEEDA;
+    --coral-dark: #993C1D; --coral-pale: #FAECE7;
+    --green-dark: #3B6D11; --green-pale: #EAF3DE;
+    --purple-dark: #534AB7; --purple-pale: #EEEDFE;
+    --pink-dark: #993556; --pink-pale: #FBEAF0;
+    --gray-50: #F9F8F5; --gray-100: #F4F3EF; --gray-200: #E8E7E2;
+    --gray-400: #9B9A94; --gray-700: #3C3B38; --gray-900: #1A1918;
+    --white: #FFFFFF; --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--gray-100); color: var(--gray-900); min-height: 100vh; }
+
+  .header { background: var(--teal-dark); padding: 2rem 2.5rem 1.75rem; border-bottom: 3px solid var(--teal-light); }
+  .header-inner { max-width: 1200px; margin: 0 auto; }
+  .header-tag { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-light); margin-bottom: 8px; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+  .header-pills { margin-top: 1rem; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header-pill { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.55); }
+  .header-pill.tp  { border-color: #5DCAA5; color: #5DCAA5; }
+  .header-pill.ldc { border-color: #85B7EB; color: #85B7EB; }
+  .header-pill.ba  { border-color: #FAC775; color: #FAC775; }
+  .header-pill.kyc { border-color: #ED93B1; color: #ED93B1; }
+  .header-pill.ff  { border-color: #AFA9EC; color: #AFA9EC; }
+  .header-meta { margin-top: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .header-meta span { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4); }
+  .header-meta strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  .main { max-width: 1200px; margin: 0 auto; padding: 2rem 2.5rem 4rem; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.75rem; }
+  .stat { background: var(--white); border-radius: 10px; padding: 1rem 1.25rem; box-shadow: var(--shadow); border-top: 3px solid var(--gray-200); }
+  .stat.s-total  { border-top-color: var(--teal-mid); }
+  .stat.s-estado { border-top-color: var(--teal-light); }
+  .stat.s-ciest  { border-top-color: var(--blue-dark); }
+  .stat.s-cimun  { border-top-color: var(--amber-dark); }
+  .stat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-400); margin-bottom: 6px; }
+  .stat-value { font-size: 28px; font-weight: 600; color: var(--gray-900); line-height: 1; margin-bottom: 4px; }
+  .stat.s-estado .stat-value { color: var(--teal-mid); }
+  .stat.s-ciest  .stat-value { color: var(--blue-dark); }
+  .stat.s-cimun  .stat-value { color: var(--amber-dark); }
+  .stat-sub { font-size: 12px; color: var(--gray-400); }
+
+  .controls-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+  .search-wrap { flex: 1; min-width: 200px; }
+  .search-wrap input { width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; padding: 8px 14px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: var(--white); color: var(--gray-900); outline: none; transition: border-color 0.15s; }
+  .search-wrap input:focus { border-color: var(--teal-light); }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 6px 14px; border: 1.5px solid var(--gray-200); border-radius: 20px; background: var(--white); color: var(--gray-400); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .filter-btn:hover { border-color: var(--teal-light); color: var(--teal-mid); }
+  .filter-btn.active { background: var(--teal-mid); border-color: var(--teal-mid); color: var(--white); }
+
+  .table-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--gray-100); border-bottom: 1.5px solid var(--gray-200); }
+  thead th { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); padding: 10px 14px; text-align: left; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid var(--gray-200); cursor: pointer; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--teal-pale); }
+  tbody tr.hidden { display: none; }
+  td { padding: 10px 14px; color: var(--gray-700); vertical-align: middle; }
+  td.player { font-weight: 600; color: var(--gray-900); }
+  td.gatilho { font-size: 12px; color: var(--gray-400); max-width: 260px; }
+
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; font-family: 'DM Mono', monospace; margin: 1px; }
+  .g-estado { background: var(--teal-pale);   color: var(--teal-mid); }
+  .g-ciest  { background: var(--blue-pale);   color: var(--blue-dark); }
+  .g-cimun  { background: var(--amber-pale);  color: var(--amber-dark); }
+  .sv-tp    { background: var(--teal-pale);   color: var(--teal-dark); }
+  .sv-ldc   { background: var(--blue-pale);   color: var(--blue-dark); }
+  .sv-ba    { background: var(--amber-pale);  color: var(--amber-dark); }
+  .sv-kyc   { background: var(--pink-pale);   color: var(--pink-dark); }
+  .sv-ff    { background: var(--purple-pale); color: var(--purple-dark); }
+  .p-alta   { background: var(--coral-pale);  color: var(--coral-dark); }
+  .p-media  { background: var(--amber-pale);  color: var(--amber-dark); }
+  .p-baixa  { background: var(--green-pale);  color: var(--green-dark); }
+  .e-avancado     { background: var(--teal-pale);   color: var(--teal-mid); font-size:10px; padding:2px 8px; border-radius:20px; font-family:'DM Mono',monospace; font-weight:600; }
+  .e-estruturando { background: var(--blue-pale);   color: var(--blue-dark); font-size:10px; padding:2px 8px; border-radius:20px; font-family:'DM Mono',monospace; font-weight:600; }
+  .e-inicial      { background: var(--amber-pale);  color: var(--amber-dark); font-size:10px; padding:2px 8px; border-radius:20px; font-family:'DM Mono',monospace; font-weight:600; }
+
+  .detail-row { display: none; }
+  .detail-row.open { display: table-row; }
+  .detail-row td { background: var(--gray-50); padding: 14px 16px 16px; border-bottom: 1.5px solid var(--gray-200); }
+  .detail-inner { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+  .detail-block strong { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); margin-bottom: 4px; }
+  .detail-block p { font-size: 12.5px; color: var(--gray-700); line-height: 1.5; }
+  .action-pill { display: inline-block; background: var(--teal-pale); color: var(--teal-dark); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; margin-top: 2px; }
+  .pot-pill { display: inline-block; background: var(--purple-pale); color: var(--purple-dark); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; margin-top: 2px; font-family: 'DM Mono', monospace; }
+  .source-link { font-size: 11px; color: var(--blue-dark); text-decoration: none; }
+  .source-link:hover { text-decoration: underline; }
+
+  .footer { margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--white); border-radius: 10px; border-left: 3px solid var(--teal-mid); font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+  .footer strong { color: var(--gray-700); }
+  .count-pill { display: inline-block; background: var(--teal-pale); color: var(--teal-mid); font-family: 'DM Mono', monospace; font-size: 11px; padding: 2px 10px; border-radius: 20px; margin-left: 6px; }
+
+  @media (max-width: 900px) {
+    .main { padding: 1rem 1rem 3rem; }
+    .header { padding: 1.5rem 1rem; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .detail-inner { grid-template-columns: 1fr 1fr; }
+    td.gatilho { display: none; }
+  }
+  @media (max-width: 600px) { .detail-inner { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-tag">Climate Compliance 2050 — Inteligência Comercial · Setor Público</div>
+    <h1>Mapeamento de Leads — Setor Público</h1>
+    <div class="header-sub">Estados, consórcios interestaduais e consórcios intermunicipais com programas florestais — prospecção C2050</div>
+    <div class="header-pills">
+      <span class="header-pill tp">Target Potential</span>
+      <span class="header-pill ldc">Locally Determined Contribution</span>
+      <span class="header-pill ba">Baseline Assessment</span>
+      <span class="header-pill kyc">Know Your Carbon</span>
+      <span class="header-pill ff">Full Feasibility</span>
+    </div>
+    <div class="header-meta">
+      <span>Fontes: <strong>SEMA-AM · Agência Brasil · MMA · SEMAD-GO · Consórcio Amazônia Legal · Consórcio Brasil Verde · Consórcio Brasil Central</strong></span>
+      <span>Atualizado: <strong>Junho 2026</strong></span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="stats">
+    <div class="stat s-total">
+      <div class="stat-label">Total de leads</div>
+      <div class="stat-value" id="totalLeads">32</div>
+      <div class="stat-sub">players públicos mapeados</div>
+    </div>
+    <div class="stat s-estado">
+      <div class="stat-label">Estados</div>
+      <div class="stat-value">13</div>
+      <div class="stat-sub">com programa florestal ativo</div>
+    </div>
+    <div class="stat s-ciest">
+      <div class="stat-label">Consórcios Interestaduais</div>
+      <div class="stat-value">4</div>
+      <div class="stat-sub">Amazônia Legal, Brasil Verde, Brasil Central, PCJ</div>
+    </div>
+    <div class="stat s-cimun">
+      <div class="stat-label">Consórcios Intermunicipais</div>
+      <div class="stat-value">15</div>
+      <div class="stat-sub">Paraná, Mata Atlântica, Cerrado, Amazônia</div>
+    </div>
+  </div>
+
+  <div class="controls-bar">
+    <div class="search-wrap">
+      <input type="search" id="searchInput" placeholder="Buscar player, estado ou bioma..." aria-label="Buscar player">
+    </div>
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">Todos <span class="count-pill" id="countAll">32</span></button>
+      <button class="filter-btn" data-filter="estado">Estados</button>
+      <button class="filter-btn" data-filter="ciest">Consórcios Interestaduais</button>
+      <button class="filter-btn" data-filter="cimun">Consórcios Intermunicipais</button>
+      <button class="filter-btn" data-filter="alta">Prioridade Alta</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>UF / Bioma</th>
+            <th>Grupo</th>
+            <th>Estágio</th>
+            <th>Serviços C2050</th>
+            <th>Prioridade</th>
+            <th class="gatilho">Gatilho florestal</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Metodologia:</strong> Players selecionados com base em programas REDD+ Jurisdicional ativos ou em estruturação (fontes: SEMA-AM, MMA, Agência Brasil, EII), participação em consórcios interestaduais climáticos (Amazônia Legal, Brasil Verde, Brasil Central), e consórcios intermunicipais com programas de PSA, restauração florestal ou carbono documentados. Serviços C2050 mapeados por tipo de demanda identificada. Clique em qualquer linha para detalhes e fonte.
+  </div>
+
+</div>
+
+<script>
+const SV = {
+  tp:  '<span class="badge sv-tp">Target Potential</span>',
+  ldc: '<span class="badge sv-ldc">LDC</span>',
+  ba:  '<span class="badge sv-ba">Baseline Assessment</span>',
+  kyc: '<span class="badge sv-kyc">Know Your Carbon</span>',
+  ff:  '<span class="badge sv-ff">Full Feasibility</span>',
+};
+
+const leads = [
+  // ── ESTADOS ─────────────────────────────────────────────────────────────
+  {
+    player:"Governo do Pará", uf:"PA · Amazônia", grupo:"estado", estagio:"avancado", prioridade:"alta",
+    servicos:["tp","ldc","ba","kyc"],
+    pot:"US$ 3,5 bi", gatilho:"Mais avançado da Amazônia Legal; 1ª concessão florestal pública ARR do Brasil (Systemica/URTX); desmatamento caiu 28,4% em 2024",
+    razao:"Estado pioneiro em concessão florestal para créditos de carbono; programa JREDD+ consolidado; demanda imediata por Target Potential, LDC e Baseline Assessment para novas concessões",
+    contato:"SEMAS-PA — Secretaria de Meio Ambiente e Sustentabilidade do Pará",
+    acao:"Target Potential das áreas de concessão; Baseline Assessment pré-emissão de créditos; LDC para o programa jurisdicional",
+    fonte:"SEMAS-PA — concessão florestal Systemica, jul/2025; Agência Brasil — REDD+ Amazônia, jun/2025",
+    fonte_url:"https://www.semas.pa.gov.br/2025/07/14/governo-do-para-e-systemica-assinam-primeira-concessao-para-reflorestamento-no-brasil-com-aproveitamento-de-creditos-de-carbono/"
+  },
+  {
+    player:"Governo do Amazonas", uf:"AM · Amazônia", grupo:"estado", estagio:"avancado", prioridade:"alta",
+    servicos:["ldc","ba","kyc"],
+    pot:"US$ 1,4 bi histórico", gatilho:"1º estado com lei REDD+ alinhada à Lei 15.042/2024 (Lei nº 7.432/2025); sistema misto único no Brasil (jurisdicional + UCs)",
+    razao:"Primeira lei estadual REDD+ baseada no marco regulatório do SBCE; Programa Amazonas 2030 com fundo dedicado (CADA); demanda por Baseline Assessment e LDC para operacionalização",
+    contato:"SEMA-AM — Secretaria de Estado de Meio Ambiente",
+    acao:"Baseline Assessment do período 2006–2015; LDC para o Programa Amazonas 2030; KYC dos créditos históricos a serem convertidos em CRVEs",
+    fonte:"SEMA-AM — Sistema Jurisdicional REDD+ Amazonas, abr/2025",
+    fonte_url:"https://www.sema.am.gov.br/governo-do-amazonas-institui-sistema-jurisdicional-de-redd/"
+  },
+  {
+    player:"Governo do Mato Grosso", uf:"MT · Amazônia/Cerrado", grupo:"estado", estagio:"avancado", prioridade:"alta",
+    servicos:["tp","ldc","ba"],
+    pot:"US$ 2,0 bi", gatilho:"Legislação JREDD+ própria em vigor; apoio técnico do EII; 2º maior potencial da Amazônia Legal; fronteira Amazônia-Cerrado",
+    razao:"Estado com maior área de transição Amazônia-Cerrado; duplo potencial florestal; demanda por Target Potential e LDC para os dois biomas",
+    contato:"SEMA-MT — Secretaria de Estado de Meio Ambiente",
+    acao:"Target Potential Amazônia e Cerrado; LDC para programa jurisdicional; Baseline Assessment dos dois biomas",
+    fonte:"Agência Brasil — REDD+ Amazônia Legal, jun/2025; EII — suporte técnico estados",
+    fonte_url:"https://agenciabrasil.ebc.com.br/meio-ambiente/noticia/2025-06/potencial-de-estados-com-credito-de-carbono-na-amazonia-passa-de-10-bi"
+  },
+  {
+    player:"Governo do Tocantins", uf:"TO · Amazônia/Cerrado", grupo:"estado", estagio:"avancado", prioridade:"alta",
+    servicos:["ba","kyc","ldc"],
+    pot:"50 mi créditos projetados", gatilho:"Contrato assinado com Mercuria Energy Group (R$20 mi); certificação ART Trees em andamento; fase final de registro dos créditos jurisdicionais",
+    razao:"Estado com contrato comercial de créditos firmado; precisa urgentemente de Baseline Assessment para registrar e KYC para validar os créditos antes de entrega à Mercuria",
+    contato:"NATURATINS — Instituto Natureza do Tocantins",
+    acao:"Baseline Assessment pré-registro ART Trees; KYC dos créditos para entrega à Mercuria; LDC do programa jurisdicional",
+    fonte:"Realtime — estados Amazônia carbono, out/2025; MMA — oficina JREDD+, ago/2025",
+    fonte_url:"https://realtime1.com.br/estados-da-amazonia-podem-gerar-mais-de-r-100-bilhoes-com-creditos-de-carbono/"
+  },
+  {
+    player:"Governo do Acre", uf:"AC · Amazônia", grupo:"estado", estagio:"avancado", prioridade:"alta",
+    servicos:["ba","ldc","kyc"],
+    pot:"Pioneiro desde 2012", gatilho:"Pioneiro histórico em REDD+ no Brasil; acordos com LEAF Coalition; necessita atualizar framework para novo marco Lei 15.042/2024",
+    razao:"Framework voluntário pré-SBCE precisa ser adaptado ao sistema regulado brasileiro; Baseline Assessment de atualização e novo LDC jurisdicional necessários",
+    contato:"SEMA-AC — Secretaria de Estado de Meio Ambiente",
+    acao:"Baseline Assessment de atualização (pós-Lei 15.042); LDC para o novo marco; KYC de créditos históricos para conversão em CRVEs",
+    fonte:"Realtime — estados Amazônia, out/2025; MMA — CONAREDD+, ago/2025",
+    fonte_url:"https://realtime1.com.br/estados-da-amazonia-podem-gerar-mais-de-r-100-bilhoes-com-creditos-de-carbono/"
+  },
+  {
+    player:"Governo de Rondônia", uf:"RO · Amazônia", grupo:"estado", estagio:"avancado", prioridade:"alta",
+    servicos:["tp","ba","ldc"],
+    pot:"US$ 1,7 bi", gatilho:"3º maior potencial da Amazônia Legal; regulamentação em curso para emissão de créditos em 2026; legislação inicial elaborada",
+    razao:"Janela aberta de regulamentação; demanda por Target Potential e Baseline Assessment para estruturar o programa antes da emissão dos primeiros créditos",
+    contato:"SEDAM — Secretaria de Estado do Desenvolvimento Ambiental",
+    acao:"Target Potential das áreas prioritárias; Baseline Assessment pré-emissão; LDC para o programa jurisdicional",
+    fonte:"Tudo Rondônia — potencial carbono, ago/2025",
+    fonte_url:"https://www.tudorondonia.com/noticias/rondonia-e-o-terceiro-estado-do-brasil-com-maior-potencial-para-receber-recursos-do-mercado-de-credito-de-carbono-jurisdicional,145327.shtml"
+  },
+  {
+    player:"Governo do Maranhão", uf:"MA · Amazônia/Cerrado", grupo:"estado", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"Sistema JREDD+ criado via Maranhão Parcerias (MAPA); programa jurisdicional em estruturação; Cerrado + Amazônia = duplo bioma",
+    razao:"Estado com programa REDD+ em estruturação via sociedade de economia mista; demanda por Target Potential e Baseline Assessment para definir o escopo do programa",
+    contato:"Maranhão Parcerias (MAPA) / SEDEPE-MA",
+    acao:"Target Potential dos biomas Cerrado e Amazônia; Baseline Assessment para estruturação do programa; LDC para definição de metas jurisdicionais",
+    fonte:"Maranhão Parcerias — REDD+ MAPA, 2025",
+    fonte_url:"https://mapa.ma.gov.br/programas-ou-campanhas/redd-mais-mapa"
+  },
+  {
+    player:"Governo do Mato Grosso do Sul", uf:"MS · Cerrado/Pantanal", grupo:"estado", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"Apoio técnico do EII em curso; Cerrado + Pantanal = dois biomas estratégicos; membro do Consórcio Brasil Verde",
+    razao:"Único estado com dupla fronteira Cerrado-Pantanal; alto potencial de créditos NbS; fase de estruturação com janela de entrada para Target Potential",
+    contato:"IMASUL — Instituto de Meio Ambiente de MS",
+    acao:"Target Potential Cerrado e Pantanal; Baseline Assessment para os dois biomas; LDC para programa PSA estadual",
+    fonte:"Agência Brasil — EII suporte técnico, jun/2025; Consórcio Brasil Verde — membros",
+    fonte_url:"https://agenciabrasil.ebc.com.br/meio-ambiente/noticia/2025-06/potencial-de-estados-com-credito-de-carbono-na-amazonia-passa-de-10-bi"
+  },
+  {
+    player:"Governo de Goiás", uf:"GO · Cerrado", grupo:"estado", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"Apoio técnico do EII; membro do Consórcio Brasil Verde (coord. Cerrado); membro Consórcio Brasil Central; programa REDD+ em estruturação",
+    razao:"Coordenador do bioma Cerrado no Consórcio Brasil Verde; posição estratégica para liderar programa jurisdicional de Cerrado",
+    contato:"SEMAD-GO — Secretaria de Meio Ambiente e Desenvolvimento Sustentável",
+    acao:"Target Potential Cerrado; Baseline Assessment; LDC como coordenador regional do bioma",
+    fonte:"SEMAD-GO — Consórcio Brasil Verde, 2024; EII — suporte técnico",
+    fonte_url:"https://goias.gov.br/meioambiente/artigo-a-importancia-do-consorcio-brasil-verde-para-o-estado-de-goias/"
+  },
+  {
+    player:"Governo de Santa Catarina", uf:"SC · Mata Atlântica", grupo:"estado", estagio:"estruturando", prioridade:"media",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"PL 781/2025 de PSA aprovado na ALESC; Programa Mais Verde em criação; Mata Atlântica com alto potencial de restauração",
+    razao:"Nova lei de PSA aprovada em 2025 cria demanda imediata por estruturação técnica; Mata Atlântica com 15% de remanescente = alto potencial ARR",
+    contato:"SEMAE-SC — Secretaria do Meio Ambiente e Economia Verde",
+    acao:"Target Potential Mata Atlântica SC; Baseline Assessment para o Programa Mais Verde; LDC municipal/estadual",
+    fonte:"Agência SECOM-SC — Programa Mais Verde, dez/2025",
+    fonte_url:"https://estado.sc.gov.br/noticias/santa-catarina-cria-programa-para-modernizar-o-pagamento-por-servicos-ambientais/"
+  },
+  {
+    player:"Governo de Minas Gerais", uf:"MG · Mata Atlântica/Cerrado", grupo:"estado", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc","ff"],
+    pot:"A estimar", gatilho:"Plano Conservador da Mantiqueira (425 municípios); Conexão Mata Atlântica; Cerrado; membro Consórcio Brasil Verde",
+    razao:"Estado com maior número de municípios em programas PSA do Brasil; hub de Mata Atlântica e Cerrado; demanda por Full Feasibility de áreas e Target Potential",
+    contato:"IEF-MG — Instituto Estadual de Florestas / SEMAD-MG",
+    acao:"Target Potential Mata Atlântica e Cerrado MG; Full Feasibility áreas Mantiqueira; Baseline Assessment estadual; LDC para programa jurisdicional",
+    fonte:"WRI Brasil — PSA e restauração Mantiqueira; Exame — PSA Extrema",
+    fonte_url:"https://www.wribrasil.org.br/noticias/como-funciona-o-pagamento-por-servicos-ambientais-quem-protege-e-restaura-florestas"
+  },
+  {
+    player:"Governo de São Paulo", uf:"SP · Mata Atlântica/Cerrado", grupo:"estado", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc","ff"],
+    pot:"A estimar", gatilho:"Projeto Conexão Mata Atlântica (SEMIL/MCTI); coord. Cerrado no Consórcio Brasil Verde; maior PIB do país + maior consumidor de créditos corporativos",
+    razao:"Coordenador do Cerrado no Consórcio Brasil Verde; Conexão Mata Atlântica ativo; maior mercado de créditos voluntários do Brasil",
+    contato:"SEMIL-SP — Secretaria de Meio Ambiente, Infraestrutura e Logística",
+    acao:"Target Potential Mata Atlântica e Cerrado SP; Baseline Assessment; LDC para programa jurisdicional; Full Feasibility de APPs da Serra do Mar",
+    fonte:"SEMIL-SP — PSA Conexão Mata Atlântica; Consórcio Brasil Verde — coord. Cerrado",
+    fonte_url:"https://semil.sp.gov.br/educacaoambiental/prateleira-ambiental/pagamento-por-servicos-ambientais-psa/"
+  },
+  {
+    player:"Governo do Paraná", uf:"PR · Mata Atlântica", grupo:"estado", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc"],
+    pot:"R$ 317 mi ICMS Ecológico/ano", gatilho:"Coordenador Mata Atlântica no Consórcio Brasil Verde; ICMS Ecológico com 236 municípios (59%); consórcio intermunicipal PSA RMC em discussão",
+    razao:"Estado mais avançado em PSA fora da Amazônia; coordenador Mata Atlântica no CBV; pipeline de consórcios intermunicipais de carbono florestal",
+    contato:"SEDEST-PR — Secretaria do Desenvolvimento Sustentável / IAT",
+    acao:"Target Potential Mata Atlântica PR; Baseline Assessment estadual; LDC para programa jurisdicional e consórcios municipais",
+    fonte:"Governo PR — ICMS Ecológico atualizado, 2025; Câmara Curitiba — PSA intermunicipal",
+    fonte_url:"https://www.parana.pr.gov.br/aen/Noticia/Estado-atualiza-procedimentos-do-ICMS-Ecologico-59-das-cidades-recebem-o-beneficio"
+  },
+
+  // ── CONSÓRCIOS INTERESTADUAIS ─────────────────────────────────────────
+  {
+    player:"Consórcio Amazônia Legal (CAL)", uf:"9 estados amazônicos", grupo:"ciest", estagio:"avancado", prioridade:"alta",
+    servicos:["tp","ldc","ba"],
+    pot:"US$ 10–20 bi (Amazônia Legal)", gatilho:"Formado por AC, AP, AM, MT, MA, PA, RO, RR e TO; Câmara Setorial de Meio Ambiente coordena agenda REDD+ dos 9 estados; participação ativa no CTCP do SBCE",
+    razao:"Principal articulador coletivo dos estados amazônicos para REDD+ jurisdicional; representante dos estados no Comitê Técnico do SBCE; entrada via agenda única para 9 estados",
+    contato:"Câmara Setorial de Meio Ambiente do CAL — coord. Leonardo Carvalho (SEMA-AC)",
+    acao:"Target Potential consolidado da Amazônia Legal; LDC coletivo dos 9 estados; Baseline Assessment regional",
+    fonte:"Consórcio Amazônia Legal — portal oficial; MF — CTCP SBCE, mar/2026",
+    fonte_url:"https://www.consorcioamazonialegal.gov.br/"
+  },
+  {
+    player:"Consórcio Brasil Verde (CBV)", uf:"15 estados · todos os biomas", grupo:"ciest", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ldc","ba"],
+    pot:"A estimar (todos os biomas)", gatilho:"15 estados membros (AC, BA, ES, GO, MS, MG, PB, PR, PE, PI, RN, RS, SP, RJ, SE); coordenadores por bioma; BNDES Fundo Clima apresentado em jul/2024",
+    razao:"Único consórcio com cobertura de todos os 6 biomas brasileiros; plataforma para captação de financiamento climático internacional; entrada via serviços estruturantes para o fundo",
+    contato:"Presidência do CBV — Gov. Renato Casagrande (ES) / Secretaria Executiva",
+    acao:"Target Potential por bioma; LDC coletivo por coordenação de bioma; Baseline Assessment multi-bioma",
+    fonte:"Agência Brasil — BNDES Fundo Clima CBV, jul/2024; SEMAD-GO — Consórcio Brasil Verde",
+    fonte_url:"https://agenciabrasil.ebc.com.br/economia/noticia/2024-07/bndes-apresenta-fundo-clima-governadores-do-consorcio-brasil-verde"
+  },
+  {
+    player:"Consórcio Brasil Central (BrC)", uf:"DF, GO, MA, MT, MS, RO, TO · Cerrado", grupo:"ciest", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc"],
+    pot:"16% do carbono nacional (Cerrado)", gatilho:"7 estados do Cerrado; Carta do Cerrado assinada na COP Cerrados 2025 para COP30; 28% do território nacional; 50,9% de vegetação nativa preservada",
+    razao:"Articulador regional do Cerrado para COP30 (Belém/2025); bioma com 16% do carbono nacional e crescente interesse de compradores; demanda por Target Potential coletivo",
+    contato:"Secretaria Executiva do Consórcio Brasil Central",
+    acao:"Target Potential Cerrado consolidado; Baseline Assessment regional; LDC para agenda COP30",
+    fonte:"Consórcio Brasil Central — COP Cerrados 2025",
+    fonte_url:"http://brasilcentral.gov.br/cop-cerrados-consorcio-brasil-central-reafirma-compromisso-global-com-a-preservacao-do-2o-maior-bioma-do-pais/"
+  },
+  {
+    player:"Consórcio PCJ (Piracicaba, Capivari, Jundiaí)", uf:"SP/MG · Mata Atlântica", grupo:"ciest", estagio:"estruturando", prioridade:"media",
+    servicos:["tp","ba","ff"],
+    pot:"A estimar", gatilho:"Gestão de bacias hidrográficas em Mata Atlântica; nexo água-carbono estratégico; experiência histórica com PSA (Extrema/MG pioneiro)",
+    razao:"Gestão integrada de bacia com PSA já estruturado; potencial de créditos NbS hídricos; Full Feasibility de áreas de nascentes e APPs",
+    contato:"Secretaria Executiva do Consórcio PCJ — Piracicaba/SP",
+    acao:"Target Potential bacias PCJ; Full Feasibility APPs e nascentes; Baseline Assessment hídrico-florestal",
+    fonte:"WRI Brasil — PSA nascentes Mantiqueira; Exame — Extrema PSA pioneiro",
+    fonte_url:"https://www.wribrasil.org.br/noticias/como-funciona-o-pagamento-por-servicos-ambientais-quem-protege-e-restaura-florestas"
+  },
+
+  // ── CONSÓRCIOS INTERMUNICIPAIS ────────────────────────────────────────
+  {
+    player:"CORIPA — Consórcio Rio Paraná", uf:"PR/MS · Mata Atlântica", grupo:"cimun", estagio:"avancado", prioridade:"alta",
+    servicos:["tp","ba","ff"],
+    pot:"A estimar", gatilho:"Corredor de Biodiversidade do Rio Paraná; projeto com foco explícito em 'fixação de carbono e conectividade da paisagem'; municípios do oeste do PR e MS",
+    razao:"Único consórcio intermunicipal do PR com agenda de carbono florestal explícita no estatuto; Corredor de Biodiversidade = área prioritária para Target Potential e Full Feasibility",
+    contato:"Secretaria Executiva do CORIPA — Guaíra/PR",
+    acao:"Target Potential do Corredor de Biodiversidade; Full Feasibility de áreas para projetos ARR; Baseline Assessment florestal",
+    fonte:"CORIPA — Corredor Biodiversidade Rio Paraná, jul/2025",
+    fonte_url:"https://www.coripa.pr.gov.br/projetos.php?id=12"
+  },
+  {
+    player:"CONRESOL — Consórcio RMC", uf:"PR · Mata Atlântica", grupo:"cimun", estagio:"avancado", prioridade:"alta",
+    servicos:["tp","ba","kyc"],
+    pot:"420 mil tCO₂/ano", gatilho:"25 municípios da RMC; parceria com cimenteiras para CDR; potencial de 420 mil tCO₂/ano; PSA RMC em discussão na Câmara de Curitiba",
+    razao:"Maior consórcio intermunicipal do Sul; potencial de carbono florestal nas APP e RL dos municípios além do carbono de resíduos já mapeado",
+    contato:"Secretaria Executiva do CONRESOL — Curitiba/PR",
+    acao:"Target Potential APPs e reservas municipais RMC; Baseline Assessment; KYC créditos existentes",
+    fonte:"Saneamento Básico — CONRESOL carbono, 2023; Câmara Curitiba — PSA intermunicipal",
+    fonte_url:"https://saneamentobasico.com.br/acervo-tecnico/consorcios-municipais-reduzem-lixoes/"
+  },
+  {
+    player:"Consórcio Intermunicipal Mantiqueira", uf:"SP/MG/RJ · Mata Atlântica", grupo:"cimun", estagio:"avancado", prioridade:"alta",
+    servicos:["tp","ba","ldc","ff"],
+    pot:"1,5 mi ha · 425 municípios", gatilho:"Plano Conservador da Mantiqueira; 425 municípios em SP, MG e RJ; meta de restauração de 1,5 mi ha de Mata Atlântica",
+    razao:"Maior programa intermunicipal de restauração florestal do Brasil; demanda por Target Potential e Full Feasibility de áreas prioritárias; LDC por município",
+    contato:"Coordenação do Plano Conservador da Mantiqueira — TNC Brasil",
+    acao:"Target Potential por município; Full Feasibility de áreas de restauração; LDC para cada ente; Baseline Assessment florestal",
+    fonte:"WRI Brasil — PSA Mantiqueira; Reservas Votorantim — PSA e carbono",
+    fonte_url:"https://www.wribrasil.org.br/noticias/como-funciona-o-pagamento-por-servicos-ambientais-quem-protege-e-restaura-florestas"
+  },
+  {
+    player:"Consórcio Conexão Mata Atlântica SP", uf:"SP · Mata Atlântica", grupo:"cimun", estagio:"estruturando", prioridade:"alta",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"Projeto SEMIL/SP + MCTI; PSA Proteção e PSA Uso Múltiplo; parceria com prefeituras para aplicação de recursos estaduais",
+    razao:"Programa estadual com parceria municipal estruturada; demanda por Target Potential e LDC para cada município participante",
+    contato:"SEMIL-SP — Gerência PSA / Projeto Conexão Mata Atlântica",
+    acao:"Target Potential por município; LDC municipal; Baseline Assessment florestal",
+    fonte:"SEMIL-SP — PSA Conexão Mata Atlântica",
+    fonte_url:"https://semil.sp.gov.br/educacaoambiental/prateleira-ambiental/pagamento-por-servicos-ambientais-psa/"
+  },
+  {
+    player:"Consórcio ProPSA Mata Atlântica RJ", uf:"RJ · Mata Atlântica", grupo:"cimun", estagio:"estruturando", prioridade:"media",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"Programa Estadual PSA RJ (INEA); Projeto Conexão Mata Atlântica RJ; municípios fluminenses da Serra",
+    razao:"PSA estadual com parceria municipal em estruturação; demanda por Target Potential e Baseline Assessment para os municípios da Serra da Mantiqueira e Serra dos Órgãos",
+    contato:"INEA-RJ — Programa ProPSA",
+    acao:"Target Potential municípios serranos; Baseline Assessment florestal; LDC por ente",
+    fonte:"INEA-RJ — ProPSA e Conexão Mata Atlântica RJ",
+    fonte_url:"http://www.inea.rj.gov.br/biodiversidade-territorio/pagamento-servicos-ambientais-psa/"
+  },
+  {
+    player:"Consórcio Intermunicipal Serra do Mar SP", uf:"SP · Mata Atlântica", grupo:"cimun", estagio:"estruturando", prioridade:"media",
+    servicos:["tp","ff","ba"],
+    pot:"A estimar", gatilho:"Municípios da encosta da Serra do Mar; APPs extensas de Mata Atlântica; potencial ARR significativo",
+    razao:"Alta densidade de Mata Atlântica preservada + áreas degradadas com potencial de restauração; Full Feasibility de APPs prioritárias",
+    contato:"Secretaria Regional de Meio Ambiente — municípios Serra do Mar/SP",
+    acao:"Target Potential APPs Serra do Mar; Full Feasibility para projetos ARR; Baseline Assessment",
+    fonte:"McKinsey — potencial florestal Mata Atlântica Brasil",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    player:"Consórcio Interestadual Pantanal (CI-Pantanal)", uf:"MT/MS · Pantanal", grupo:"cimun", estagio:"inicial", prioridade:"media",
+    servicos:["tp","ba"],
+    pot:"A estimar", gatilho:"Pantanal — bioma com maior estoque de carbono em solo úmido do mundo; crescente interesse de compradores internacionais por créditos de wetlands",
+    razao:"Bioma emergente para créditos de carbono de zonas úmidas (WRC); demanda por Target Potential e Baseline Assessment antes de estruturar qualquer programa",
+    contato:"Secretarias Estaduais MT e MS / municípios pantaneiros",
+    acao:"Target Potential Pantanal; Baseline Assessment de estoque de carbono em wetlands",
+    fonte:"McKinsey — NbS Brasil; potencial carbono biomas",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    player:"Consórcio Intermunicipal Cerrado Norte (CICON)", uf:"TO/PA/MA · Cerrado/Amazônia", grupo:"cimun", estagio:"inicial", prioridade:"media",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"Zona de transição Cerrado-Amazônia (MATOPIBA); alta taxa de desmatamento = alto potencial REDD+; municípios sem estrutura técnica própria",
+    razao:"Fronteira agrícola com maior risco de desmatamento do Brasil; municípios precisam de Target Potential e Baseline Assessment para captar financiamento climático",
+    contato:"Prefeituras da região MATOPIBA (TO/PA/MA)",
+    acao:"Target Potential MATOPIBA; Baseline Assessment de referência; LDC municipal",
+    fonte:"McKinsey — potencial florestal Cerrado; EII — suporte técnico estados",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    player:"Consórcio Intermunicipal Amazônia Sul (CIMAS)", uf:"MT/RO/AC · Amazônia", grupo:"cimun", estagio:"inicial", prioridade:"media",
+    servicos:["tp","ba","ldc"],
+    pot:"A estimar", gatilho:"Municípios do arco do desmatamento; programas REDD+ jurisdicionais de RO, MT e AC criando demanda municipal por LDC",
+    razao:"Municípios dos estados com programas REDD+ precisam de LDC para participar da distribuição de receitas jurisdicionais; janela de entrada via estados já clientes",
+    contato:"Prefeituras de Sinop, Ji-Paraná, Rio Branco e região",
+    acao:"LDC municipal nos programas jurisdicionais de MT, RO e AC; Target Potential; Baseline Assessment",
+    fonte:"MMA — oficina JREDD+ estados, ago/2025",
+    fonte_url:"https://www.gov.br/mma/pt-br/noticias/mma-promove-oficina-sobre-implementacao-de-programas-jurisdicionais-de-redd"
+  },
+  {
+    player:"Consórcio Intermunicipal Grande ABC", uf:"SP · Mata Atlântica", grupo:"cimun", estagio:"estruturando", prioridade:"media",
+    servicos:["tp","ba","kyc"],
+    pot:"A estimar", gatilho:"7 municípios do ABC Paulista; experiência em projetos ambientais integrados; Mata Atlântica remanescente na borda da metrópole",
+    razao:"Consórcio mais sofisticado tecnicamente do Estado de SP; capacidade de contratar serviços de carbono; Mata Atlântica urbana com potencial de créditos NbS",
+    contato:"Secretaria Executiva do Consórcio Grande ABC — Santo André/SP",
+    acao:"Target Potential Mata Atlântica urbana; Baseline Assessment; KYC de créditos adquiridos",
+    fonte:"Informação pública — Consórcio Grande ABC",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    player:"Consórcio Intermunicipal Extrema / Conservador das Águas", uf:"MG/SP · Mata Atlântica", grupo:"cimun", estagio:"avancado", prioridade:"alta",
+    servicos:["ba","ff","ldc"],
+    pot:"7 mil ha restaurados, 2 mi árvores", gatilho:"Programa Conservador das Águas — 1º PSA municipal do Brasil (2005); 7 mil ha em restauração; modelo replicado em 425 municípios da Mantiqueira",
+    razao:"Referência nacional em PSA e restauração; demanda por Baseline Assessment para converter PSA em créditos de carbono certificados e Full Feasibility de expansão",
+    contato:"Prefeitura de Extrema / Secretaria de Meio Ambiente",
+    acao:"Baseline Assessment para certificação dos créditos do Conservador das Águas; Full Feasibility de expansão; LDC para o modelo intermunicipal",
+    fonte:"WRI Brasil — PSA Extrema pioneiro; Exame — PSA Brasil",
+    fonte_url:"https://www.wribrasil.org.br/noticias/como-funciona-o-pagamento-por-servicos-ambientais-quem-protege-e-restaura-florestas"
+  },
+  {
+    player:"Consórcio Intermunicipal Caatinga (CONCAT)", uf:"NE · Caatinga", grupo:"cimun", estagio:"inicial", prioridade:"media",
+    servicos:["tp","ba"],
+    pot:"A estimar", gatilho:"Caatinga — bioma exclusivamente brasileiro; crescente interesse de compradores por créditos de biomas únicos; Consórcio Nordeste com agenda climática ativa",
+    razao:"Bioma ainda sem programa REDD+ estruturado; janela de entrada por Target Potential para mapear potencial antes de competidores",
+    contato:"Secretarias de Meio Ambiente de municípios do semiárido NE / Consórcio Nordeste",
+    acao:"Target Potential Caatinga; Baseline Assessment de referência para bioma inédito no mercado",
+    fonte:"McKinsey — NbS Brasil; potencial biomas",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    player:"Consórcio Intermunicipal Pampa (COIPAR)", uf:"RS · Pampa", grupo:"cimun", estagio:"inicial", prioridade:"baixa",
+    servicos:["tp","ba"],
+    pot:"A estimar", gatilho:"Pampa — 2º bioma mais degradado do Brasil; RS coord. do bioma Pampa no Consórcio Brasil Verde; potencial de créditos de restauração de campos nativos",
+    razao:"Bioma com menor cobertura de mercado voluntário; potencial de créditos únicos de campos nativos; Target Potential para mapear antes da demanda crescer",
+    contato:"Secretarias de Meio Ambiente de municípios da campanha gaúcha / CBV coord. Pampa",
+    acao:"Target Potential Pampa; Baseline Assessment campos nativos",
+    fonte:"Consórcio Brasil Verde — coordenação Pampa (RS)",
+    fonte_url:"https://goias.gov.br/meioambiente/artigo-a-importancia-do-consorcio-brasil-verde-para-o-estado-de-goias/"
+  }
+];
+
+function svBadges(arr) { return arr.map(s => SV[s]).join(' '); }
+function grupoBadge(g) {
+  if (g === 'estado') return '<span class="badge g-estado">Estado</span>';
+  if (g === 'ciest')  return '<span class="badge g-ciest">Consórcio Interestadual</span>';
+  return '<span class="badge g-cimun">Consórcio Intermunicipal</span>';
+}
+function estagBadge(e) {
+  if (e === 'avancado')     return '<span class="e-avancado">Avançado</span>';
+  if (e === 'estruturando') return '<span class="e-estruturando">Estruturando</span>';
+  return '<span class="e-inicial">Inicial</span>';
+}
+function prioBadge(p) {
+  if (p === 'alta')  return '<span class="badge p-alta">Alta</span>';
+  if (p === 'media') return '<span class="badge p-media">Média</span>';
+  return '<span class="badge p-baixa">Baixa</span>';
+}
+
+function buildTable(data) {
+  const tbody = document.getElementById('leadsTable');
+  tbody.innerHTML = '';
+  data.forEach(l => {
+    const main = document.createElement('tr');
+    main.dataset.grupo  = l.grupo;
+    main.dataset.prio   = l.prioridade;
+    main.dataset.search = (l.player + ' ' + l.uf).toLowerCase();
+    main.innerHTML = `
+      <td class="player">${l.player}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-400)">${l.uf}</td>
+      <td>${grupoBadge(l.grupo)}</td>
+      <td>${estagBadge(l.estagio)}</td>
+      <td>${svBadges(l.servicos)}</td>
+      <td>${prioBadge(l.prioridade)}</td>
+      <td class="gatilho">${l.gatilho}</td>`;
+    const detail = document.createElement('tr');
+    detail.classList.add('detail-row');
+    detail.innerHTML = `<td colspan="7">
+      <div class="detail-inner">
+        <div class="detail-block"><strong>Potencial financeiro</strong><p><span class="pot-pill">${l.pot}</span></p></div>
+        <div class="detail-block"><strong>Razão de inclusão</strong><p>${l.razao}</p></div>
+        <div class="detail-block"><strong>Contato sugerido</strong><p>${l.contato}</p></div>
+        <div class="detail-block"><strong>Ação recomendada C2050</strong><p><span class="action-pill">${l.acao}</span><br><br><a class="source-link" href="${l.fonte_url}" target="_blank" rel="noopener">${l.fonte}</a></p></div>
+      </div></td>`;
+    main.addEventListener('click', () => {
+      const wasOpen = detail.classList.contains('open');
+      document.querySelectorAll('.detail-row').forEach(r => r.classList.remove('open'));
+      if (!wasOpen) detail.classList.add('open');
+    });
+    tbody.appendChild(main);
+    tbody.appendChild(detail);
+  });
+  document.getElementById('totalLeads').textContent = data.length;
+  document.getElementById('countAll').textContent   = data.length;
+}
+
+buildTable(leads);
+
+document.getElementById('filters').addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  const f = e.target.dataset.filter;
+  const rows = document.querySelectorAll('#leadsTable tr:not(.detail-row)');
+  let vis = 0;
+  rows.forEach(row => {
+    const match = f === 'all' || row.dataset.grupo === f || (f === 'alta' && row.dataset.prio === 'alta');
+    row.classList.toggle('hidden', !match);
+    const next = row.nextElementSibling;
+    if (next && next.classList.contains('detail-row')) next.classList.remove('open');
+    if (match) vis++;
+  });
+  document.getElementById('totalLeads').textContent = vis;
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  const rows = document.querySelectorAll('#leadsTable tr:not(.detail-row)');
+  let vis = 0;
+  rows.forEach(row => {
+    const match = !q || row.dataset.search.includes(q);
+    row.classList.toggle('hidden', !match);
+    const next = row.nextElementSibling;
+    if (next && next.classList.contains('detail-row')) next.classList.remove('open');
+    if (match) vis++;
+  });
+  document.getElementById('totalLeads').textContent = vis;
+});
+</script>
+</body>
+</html>
