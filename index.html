@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leads Setor Privado — Climate Compliance 2050</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --teal-dark: #04342C; --teal-mid: #0F6E56; --teal-light: #1D9E75; --teal-pale: #E1F5EE;
+    --blue-dark: #185FA5; --blue-pale: #E6F1FB;
+    --amber-dark: #854F0B; --amber-pale: #FAEEDA;
+    --coral-dark: #993C1D; --coral-pale: #FAECE7;
+    --green-dark: #3B6D11; --green-pale: #EAF3DE;
+    --purple-dark: #534AB7; --purple-pale: #EEEDFE;
+    --gray-50: #F9F8F5; --gray-100: #F4F3EF; --gray-200: #E8E7E2;
+    --gray-400: #9B9A94; --gray-700: #3C3B38; --gray-900: #1A1918;
+    --white: #FFFFFF; --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--gray-100); color: var(--gray-900); min-height: 100vh; }
+
+  .header { background: var(--teal-dark); padding: 2rem 2.5rem 1.75rem; border-bottom: 3px solid var(--teal-light); }
+  .header-inner { max-width: 1200px; margin: 0 auto; }
+  .header-tag { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-light); margin-bottom: 8px; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+  .header-pills { margin-top: 1rem; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header-pill { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.55); }
+  .header-pill.kyc { border-color: #5DCAA5; color: #5DCAA5; }
+  .header-pill.ff  { border-color: #85B7EB; color: #85B7EB; }
+  .header-meta { margin-top: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .header-meta span { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4); }
+  .header-meta strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  .main { max-width: 1200px; margin: 0 auto; padding: 2rem 2.5rem 4rem; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.75rem; }
+  .stat { background: var(--white); border-radius: 10px; padding: 1rem 1.25rem; box-shadow: var(--shadow); border-top: 3px solid var(--gray-200); }
+  .stat.s-total { border-top-color: var(--teal-mid); }
+  .stat.s-kyc   { border-top-color: var(--teal-light); }
+  .stat.s-ff    { border-top-color: var(--blue-dark); }
+  .stat.s-both  { border-top-color: var(--purple-dark); }
+  .stat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-400); margin-bottom: 6px; }
+  .stat-value { font-size: 28px; font-weight: 600; color: var(--gray-900); line-height: 1; margin-bottom: 4px; }
+  .stat.s-kyc  .stat-value { color: var(--teal-mid); }
+  .stat.s-ff   .stat-value { color: var(--blue-dark); }
+  .stat.s-both .stat-value { color: var(--purple-dark); }
+  .stat-sub { font-size: 12px; color: var(--gray-400); }
+
+  .controls-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+  .search-wrap { flex: 1; min-width: 200px; }
+  .search-wrap input { width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; padding: 8px 14px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: var(--white); color: var(--gray-900); outline: none; transition: border-color 0.15s; }
+  .search-wrap input:focus { border-color: var(--teal-light); }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 6px 14px; border: 1.5px solid var(--gray-200); border-radius: 20px; background: var(--white); color: var(--gray-400); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .filter-btn:hover { border-color: var(--teal-light); color: var(--teal-mid); }
+  .filter-btn.active { background: var(--teal-mid); border-color: var(--teal-mid); color: var(--white); }
+
+  .table-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--gray-100); border-bottom: 1.5px solid var(--gray-200); }
+  thead th { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); padding: 10px 14px; text-align: left; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid var(--gray-200); cursor: pointer; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--teal-pale); }
+  tbody tr.hidden { display: none; }
+  td { padding: 10px 14px; color: var(--gray-700); vertical-align: middle; }
+  td.empresa { font-weight: 600; color: var(--gray-900); }
+  td.razao { font-size: 12px; color: var(--gray-400); max-width: 260px; }
+
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; font-family: 'DM Mono', monospace; }
+  .s-kyc  { background: var(--teal-pale);   color: var(--teal-mid); }
+  .s-ff   { background: var(--blue-pale);   color: var(--blue-dark); }
+  .s-both { background: var(--purple-pale); color: var(--purple-dark); }
+  .p-alta  { background: var(--coral-pale);  color: var(--coral-dark); }
+  .p-media { background: var(--amber-pale);  color: var(--amber-dark); }
+  .p-baixa { background: var(--green-pale);  color: var(--green-dark); }
+  .setor-pill { font-size: 11px; color: var(--gray-400); font-family: 'DM Mono', monospace; }
+
+  .detail-row { display: none; }
+  .detail-row.open { display: table-row; }
+  .detail-row td { background: var(--gray-50); padding: 14px 16px 16px; border-bottom: 1.5px solid var(--gray-200); }
+  .detail-inner { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+  .detail-block strong { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); margin-bottom: 4px; }
+  .detail-block p { font-size: 12.5px; color: var(--gray-700); line-height: 1.5; }
+  .action-pill { display: inline-block; background: var(--teal-pale); color: var(--teal-dark); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; margin-top: 2px; }
+  .source-link { font-size: 11px; color: var(--blue-dark); text-decoration: none; }
+  .source-link:hover { text-decoration: underline; }
+
+  .footer { margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--white); border-radius: 10px; border-left: 3px solid var(--teal-mid); font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+  .footer strong { color: var(--gray-700); }
+  .count-pill { display: inline-block; background: var(--teal-pale); color: var(--teal-mid); font-family: 'DM Mono', monospace; font-size: 11px; padding: 2px 10px; border-radius: 20px; margin-left: 6px; }
+
+  @media (max-width: 900px) {
+    .main { padding: 1rem 1rem 3rem; }
+    .header { padding: 1.5rem 1rem; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .detail-inner { grid-template-columns: 1fr 1fr; }
+    td.razao { display: none; }
+  }
+  @media (max-width: 600px) { .detail-inner { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-tag">Climate Compliance 2050 — Inteligência Comercial · Setor Privado</div>
+    <h1>Mapeamento de Leads — Setor Privado</h1>
+    <div class="header-sub">Empresas brasileiras com ativos florestais, metas net zero ou estratégia de compra de créditos florestais — prospecção C2050</div>
+    <div class="header-pills">
+      <span class="header-pill kyc">Know Your Carbon — due diligence de ativos</span>
+      <span class="header-pill ff">Full Feasibility — viabilidade de área/projeto</span>
+    </div>
+    <div class="header-meta">
+      <span>Fontes: <strong>Agência Brasil · Mongabay · McKinsey · NBS Brazil Alliance · Estadão · CNN Brasil</strong></span>
+      <span>Atualizado: <strong>Junho 2026</strong></span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="stats">
+    <div class="stat s-total">
+      <div class="stat-label">Total de leads</div>
+      <div class="stat-value" id="totalLeads">30</div>
+      <div class="stat-sub">empresas com fit florestal</div>
+    </div>
+    <div class="stat s-kyc">
+      <div class="stat-label">Know Your Carbon</div>
+      <div class="stat-value" id="countKYC">—</div>
+      <div class="stat-sub">compradores de créditos</div>
+    </div>
+    <div class="stat s-ff">
+      <div class="stat-label">Full Feasibility</div>
+      <div class="stat-value" id="countFF">—</div>
+      <div class="stat-sub">desenvolvedores de área</div>
+    </div>
+    <div class="stat s-both">
+      <div class="stat-label">KYC + Feasibility</div>
+      <div class="stat-value" id="countBoth">—</div>
+      <div class="stat-sub">ambos os serviços</div>
+    </div>
+  </div>
+
+  <div class="controls-bar">
+    <div class="search-wrap">
+      <input type="search" id="searchInput" placeholder="Buscar empresa ou setor..." aria-label="Buscar empresa ou setor">
+    </div>
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">Todos <span class="count-pill" id="countAll">30</span></button>
+      <button class="filter-btn" data-filter="kyc">Know Your Carbon</button>
+      <button class="filter-btn" data-filter="ff">Full Feasibility</button>
+      <button class="filter-btn" data-filter="both">KYC + Feasibility</button>
+      <button class="filter-btn" data-filter="alta">Prioridade Alta</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Setor</th>
+            <th>Serviço C2050</th>
+            <th>Ticker</th>
+            <th>Prioridade</th>
+            <th class="razao">Gatilho florestal</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Metodologia:</strong> Leads selecionados com base em (1) participação declarada em projetos de restauração/conservação florestal, (2) metas net zero com uso explícito de offsets naturais, (3) ativos florestais próprios ou parcerias com empresas do setor, ou (4) compra documentada de créditos REDD+/ARR. Fontes verificadas incluem Agência Brasil, Mongabay Brasil, McKinsey, NBS Brazil Alliance, CNN Brasil e Estadão. Clique em qualquer linha para detalhes e fonte.
+  </div>
+
+</div>
+
+<script>
+const leads = [
+  // ── COMPRADORES DIRETOS (KYC) ─────────────────────────────────────────
+  {
+    empresa:"Petrobras", setor:"Petróleo & Gás", servico:"kyc", ticker:"PETR3/PETR4",
+    prioridade:"alta",
+    gatilho:"Parceira do ProFloresta+ (BNDES); compromisso de R$ 450 mi em créditos florestais ARR na Amazônia",
+    razao:"Compradora ativa de créditos de carbono florestal de alta integridade; 5 mi de créditos ARR contratados",
+    contato:"Gerência de Carbono e Clima / Diretoria de Transição Energética",
+    acao:"KYC dos projetos ARR contratados via ProFloresta+; auditoria de integridade",
+    fonte:"Agência Brasil — ProFloresta+, mar/2025",
+    fonte_url:"https://agenciabrasil.ebc.com.br/economia/noticia/2025-03/petrobras-comprara-r-450-milhoes-em-creditos-de-carbono-na-amazonia"
+  },
+  {
+    empresa:"Itaú Unibanco", setor:"Setor Financeiro", servico:"both", ticker:"ITUB4",
+    prioridade:"alta",
+    gatilho:"Sócio fundador da Biomas (restauração florestal); Net-Zero Banking Alliance; meta net zero 2050",
+    razao:"Sócio da Biomas junto com Vale, Suzano e Marfrig; compra créditos para compensar carteira de crédito",
+    contato:"VP de Sustentabilidade / Área de ESG Corporativo",
+    acao:"KYC dos ativos da Biomas; Full Feasibility de novas áreas de restauração",
+    fonte:"CNN Brasil / Estadão — Biomas, nov/2022 e abr/2025",
+    fonte_url:"https://cnbsp.org.br/2025/04/25/estadao-empresa-que-tem-entre-socios-itau-santander-e-vale-lanca-primeiro-projeto-de-credito-de-carbono/"
+  },
+  {
+    empresa:"Santander Brasil", setor:"Setor Financeiro", servico:"both", ticker:"SANB11",
+    prioridade:"alta",
+    gatilho:"Sócio fundador da Biomas; metas SBTi e NZBA; pressão regulatória do Banco Central (Res. 4.945)",
+    razao:"Banco com maior exposição a risco climático de carteira; sócio ativo em restauração florestal",
+    contato:"Diretoria de ESG e Sustentabilidade",
+    acao:"KYC dos ativos Biomas; Full Feasibility de expansão de portfólio florestal",
+    fonte:"CNN Brasil — Biomas, nov/2022",
+    fonte_url:"https://www.cnnbrasil.com.br/business/suzano-vale-marfrig-itau-santander-e-rabobank-criam-empresa-de-preservacao-florestal/"
+  },
+  {
+    empresa:"Bradesco", setor:"Setor Financeiro", servico:"kyc", ticker:"BBDC4",
+    prioridade:"alta",
+    gatilho:"Primeiro banco brasileiro a aderir ao NZBA; meta de descarbonização de carteira até 2050",
+    razao:"Comprará créditos florestais para compensar emissões financiadas; NZBA exige qualidade de ativos",
+    contato:"VP de ESG / Gerência de Sustentabilidade",
+    acao:"KYC de projetos REDD+ e ARR para composição de portfólio de compensação",
+    fonte:"Mais Retorno — NZBA Bradesco, jul/2021",
+    fonte_url:"https://maisretorno.com/portal/bradesco-firma-compromisso-de-descarbonizar-carteiras-ate-2050"
+  },
+  {
+    empresa:"Vale", setor:"Mineração", servico:"both", ticker:"VALE3",
+    prioridade:"alta",
+    gatilho:"Sócia fundadora da Biomas; meta net zero 2050; R$ 20 mi investidos em restauração florestal",
+    razao:"Sócia ativa da Biomas; área florestal própria no entorno de minas; pressão ESG de investidores internacionais",
+    contato:"VP de Clima e Natureza",
+    acao:"KYC dos projetos Biomas; Full Feasibility de áreas de compensação em torno de operações mineiras",
+    fonte:"CNN Brasil — Biomas, nov/2022",
+    fonte_url:"https://www.cnnbrasil.com.br/business/suzano-vale-marfrig-itau-santander-e-rabobank-criam-empresa-de-preservacao-florestal/"
+  },
+  {
+    empresa:"Marfrig", setor:"Alimentos (Proteína Animal)", servico:"both", ticker:"MRFG3",
+    prioridade:"alta",
+    gatilho:"Sócia fundadora da Biomas; meta desmatamento zero na cadeia; pressão de compradores europeus",
+    razao:"Alto risco reputacional por desmatamento; usa projetos florestais para credenciar cadeia de fornecedores",
+    contato:"Diretoria de Sustentabilidade",
+    acao:"KYC de ativos Biomas; Full Feasibility de áreas de fornecedores para geração de créditos",
+    fonte:"CNN Brasil — Biomas, nov/2022; Mongabay — Biomas ARR, mai/2025",
+    fonte_url:"https://brasil.mongabay.com/2025/05/restauracao-da-amazonia-oferece-redencao-para-creditos-de-carbono-apos-escandalos-em-projetos-redd/"
+  },
+  {
+    empresa:"JBS", setor:"Alimentos (Proteína Animal)", servico:"kyc", ticker:"JBSS3",
+    prioridade:"alta",
+    gatilho:"Meta net zero 2040; pressão de cadeias globais (Walmart, McDonald's); escrutínio de desmatamento",
+    razao:"Maior frigorífico do mundo; comprará créditos florestais de alta integridade para compensar escopo 3",
+    contato:"VP de ESG e Sustentabilidade",
+    acao:"KYC de projetos REDD+ e ARR para composição de portfólio de compensação de cadeia",
+    fonte:"NBS Brazil Alliance — Guia de Compra de Créditos REDD+",
+    fonte_url:"https://nbsbrazilalliance.org/wp-content/uploads/2021/12/guia-para-compra-de-creditos-de-carbono-redd.pdf"
+  },
+  {
+    empresa:"Suzano", setor:"Papel & Celulose", servico:"both", ticker:"SUZB3",
+    prioridade:"alta",
+    gatilho:"Sócia fundadora da Biomas; 2,6 mi ha de floresta própria; meta net zero 2050; Área Veracel para restauração",
+    razao:"Maior produtora de celulose do mundo; hospeda projeto piloto da Biomas na Mata Atlântica (Veracel/BA)",
+    contato:"Superintendência de Clima e Florestas",
+    acao:"KYC dos projetos Biomas em área Veracel; Full Feasibility de reservas legais e APPs",
+    fonte:"Seu Dinheiro — Biomas R$55mi, abr/2025",
+    fonte_url:"https://www.seudinheiro.com/2025/empresas/consorcio-formado-por-grandes-empresas-investe-r-55-milhoes-em-projeto-de-restauracao-ecologica-bvog/"
+  },
+  {
+    empresa:"Klabin", setor:"Papel & Celulose", servico:"both", ticker:"KLBN11",
+    prioridade:"alta",
+    gatilho:"Triple A no CDP; 500 mil ha de áreas florestais; RPPN própria; meta net zero; alta pressão de clientes europeus",
+    razao:"Maior produtora de embalagens do Brasil; reservas florestais extensas com potencial de projetos REDD+/ARR",
+    contato:"Diretoria de Sustentabilidade e Florestas",
+    acao:"Full Feasibility de áreas de reserva legal e RPPN para geração de créditos; KYC de créditos comprados",
+    fonte:"CDP A-List 2023 — Klabin Triple A",
+    fonte_url:"https://www.noticiasustentavel.com.br/empresas-brasileiras-transparencia-ambiental/"
+  },
+  {
+    empresa:"Natura &Co", setor:"Cosméticos / Varejo", servico:"kyc", ticker:"NTCO3",
+    prioridade:"alta",
+    gatilho:"Meta net zero 2030 (mais ambiciosa do setor); compra créditos REDD+ desde 2007; Amazônia como ativo de marca",
+    razao:"Pioneira em compra de créditos florestais no Brasil; necessita KYC contínuo para manter integridade de portfólio",
+    contato:"VP de Sustentabilidade / Programa Amazônia",
+    acao:"KYC de projetos REDD+ em carteira; auditoria de integridade e conformidade pós-SBCE",
+    fonte:"NBS Brazil Alliance — lista de compradores REDD+",
+    fonte_url:"https://nbsbrazilalliance.org/wp-content/uploads/2021/12/guia-para-compra-de-creditos-de-carbono-redd.pdf"
+  },
+  {
+    empresa:"Grupo Boticário", setor:"Cosméticos / Varejo", servico:"kyc", ticker:"Priv.",
+    prioridade:"alta",
+    gatilho:"Compra créditos de carbono para neutralizar operações; RPPN Boticário — maior RPPN privada do Brasil",
+    razao:"RPPN própria com 11 mil ha (PR/SP); compradora ativa de créditos florestais; necessita KYC de portfólio",
+    contato:"Gerência de Sustentabilidade / Fundação Boticário",
+    acao:"KYC dos créditos em carteira; Full Feasibility da RPPN para geração própria de créditos",
+    fonte:"iFood/Boticário — lista compradores carbono",
+    fonte_url:"https://institucional.ifood.com.br/impacto-social/credito-de-carbono/"
+  },
+  {
+    empresa:"Banco do Brasil", setor:"Setor Financeiro", servico:"kyc", ticker:"BBAS3",
+    prioridade:"alta",
+    gatilho:"Membro da NZBA; carteira de crédito rural com alto risco de desmatamento; compra créditos de carbono",
+    razao:"Principal financiador do agronegócio brasileiro; compromisso de descarbonização de carteira exige créditos florestais",
+    contato:"VP de Sustentabilidade Empresarial",
+    acao:"KYC de projetos REDD+ e ARR para carteira de compensação",
+    fonte:"NBS Brazil Alliance — lista compradores",
+    fonte_url:"https://nbsbrazilalliance.org/wp-content/uploads/2021/12/guia-para-compra-de-creditos-de-carbono-redd.pdf"
+  },
+  {
+    empresa:"Shell Brasil", setor:"Petróleo & Gás", servico:"both", ticker:"SHEL (LSE)",
+    prioridade:"alta",
+    gatilho:"Parceira do Carbon Countdown (Petrobras+Shell) para medir carbono em solos e florestas do Brasil",
+    razao:"Compradora global de NBS; financiou Carbon Countdown com Petrobras para calibrar créditos florestais brasileiros",
+    contato:"Gerência de Sustentabilidade / Carbon & Nature",
+    acao:"KYC dos projetos NBS no Brasil; Full Feasibility de áreas elegíveis identificadas pelo Carbon Countdown",
+    fonte:"Finviz — Carbon Countdown Petrobras+Shell, jan/2026",
+    fonte_url:"https://finviz.com/news/276079/petrobras-and-shell-fund-brazils-carbon-countdown-initiative"
+  },
+  {
+    empresa:"iFood", setor:"Tecnologia / Delivery", servico:"kyc", ticker:"Priv.",
+    prioridade:"media",
+    gatilho:"Compra créditos de carbono florestal REDD+ desde 2021 para neutralizar entregas; parceria com projetos na Amazônia",
+    razao:"Pioneiro em neutralidade de carbono em entregas no Brasil; carteira crescente de créditos florestais",
+    contato:"Gerência de ESG / Sustentabilidade",
+    acao:"KYC dos projetos REDD+ em carteira; due diligence pós-escândalos do setor",
+    fonte:"iFood Institucional — créditos de carbono 2021",
+    fonte_url:"https://institucional.ifood.com.br/impacto-social/credito-de-carbono/"
+  },
+  {
+    empresa:"Raízen (Cosan / Shell JV)", setor:"Energia / Sucroalcooleiro", servico:"both", ticker:"RAIZ4",
+    prioridade:"alta",
+    gatilho:"Meta net zero; vastas áreas de canavial com potencial de restauração de APP e RL; SBCE Fase 1",
+    razao:"Maior produtora de etanol do mundo; áreas degradadas em torno de usinas com potencial florestal",
+    contato:"VP de Sustentabilidade",
+    acao:"Full Feasibility de APPs e reservas legais de usinas; KYC de créditos adquiridos",
+    fonte:"McKinsey — mercado voluntário carbono Brasil",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/all-insights/mercado-voluntario-de-carbono-tem-potencial-gigantesco-no-brasil"
+  },
+  {
+    empresa:"Vibra Energia", setor:"Combustíveis / Distribuição", servico:"kyc", ticker:"VBBR3",
+    prioridade:"media",
+    gatilho:"Meta net zero; distribuição de combustíveis fósseis; obrigação SBCE Fase 1; necessidade de offsets",
+    razao:"Distribuidora de combustíveis com escopo 3 relevante; comprará créditos florestais para conformidade e voluntário",
+    contato:"Gerência ESG",
+    acao:"KYC de projetos REDD+ e ARR para portfólio de compensação",
+    fonte:"SBCE proposta setorial SEMC/MF, mai/2026",
+    fonte_url:"https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/maio/ministerio-da-fazenda-apresenta-proposta-preliminar-de-cobertura-setorial-do-mercado-regulado-de-carbono"
+  },
+  // ── DESENVOLVEDORES / PROPRIETÁRIOS (FF) ────────────────────────────────
+  {
+    empresa:"re.green", setor:"Restauração Florestal (NbS)", servico:"ff", ticker:"Priv.",
+    prioridade:"alta",
+    gatilho:"Empresa de restauração florestal com apoio de Armínio Fraga e família Moreira Salles (Itaú); 15 mil ha na Amazônia e Mata Atlântica",
+    razao:"Desenvolvedora de projetos ARR; precisa de Full Feasibility rigorosa para cada nova área antes de captar investidores",
+    contato:"Direção de Projetos / Originação",
+    acao:"Full Feasibility de novas áreas de restauração na Amazônia e Mata Atlântica",
+    fonte:"Mongabay Brasil — restauração florestal mai/2025",
+    fonte_url:"https://brasil.mongabay.com/2025/05/restauracao-da-amazonia-oferece-redencao-para-creditos-de-carbono-apos-escandalos-em-projetos-redd/"
+  },
+  {
+    empresa:"Mombak", setor:"Restauração Florestal (NbS)", servico:"ff", ticker:"Priv.",
+    prioridade:"alta",
+    gatilho:"Fundada por ex-Nubank e 99; foco em restauração amazônica de alta integridade; parceiros internacionais de alta exigência",
+    razao:"Desenvolvedora de projetos ARR para compradores corporativos globais; demanda Full Feasibility para cada área",
+    contato:"Equipe de Originação de Projetos",
+    acao:"Full Feasibility de áreas prioritárias na Amazônia Legal",
+    fonte:"Mongabay Brasil — restauração florestal mai/2025",
+    fonte_url:"https://brasil.mongabay.com/2025/05/restauracao-da-amazonia-oferece-redencao-para-creditos-de-carbono-apos-escandalos-em-projetos-redd/"
+  },
+  {
+    empresa:"Biomas", setor:"Restauração Florestal (NbS)", servico:"both", ticker:"Priv.",
+    prioridade:"alta",
+    gatilho:"Empresa de restauração fundada por Itaú, Vale, Suzano, Marfrig, Santander e Rabobank; meta 4 mi ha em 20 anos",
+    razao:"Maior iniciativa privada de restauração florestal do Brasil; precisa de KYC de ativos e Full Feasibility de expansão",
+    contato:"Diretoria de Projetos / Originação",
+    acao:"Full Feasibility de novas áreas; KYC do projeto piloto Mata Atlântica (Veracel/BA)",
+    fonte:"Seu Dinheiro / CNN Brasil — Biomas abr/2025",
+    fonte_url:"https://www.seudinheiro.com/2025/empresas/consorcio-formado-por-grandes-empresas-investe-r-55-milhoes-em-projeto-de-restauracao-ecologica-bvog/"
+  },
+  {
+    empresa:"Gaia Agro (SLC Agrícola)", setor:"Agronegócio / NbS", servico:"ff", ticker:"SLCE3",
+    prioridade:"alta",
+    gatilho:"Uma das maiores produtoras agrícolas do Brasil; passivo de reserva legal em fazendas; potencial ARR e REDD+",
+    razao:"Proprietária de fazendas com extensas áreas de reserva legal; potencial significativo de projetos NbS",
+    contato:"Gerência de Sustentabilidade / ESG",
+    acao:"Full Feasibility de reservas legais e APPs das fazendas no Cerrado e Amazônia",
+    fonte:"McKinsey — potencial florestal Brasil",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    empresa:"Adecoagro Brasil", setor:"Agronegócio / NbS", servico:"ff", ticker:"AGRO (NYSE)",
+    prioridade:"media",
+    gatilho:"Produtora agrícola com ativos fundiários extensos; reservas legais com potencial de carbono",
+    razao:"Áreas agrícolas com passivo de RL e APP no Cerrado; potencial de projetos ARR e REDD+",
+    contato:"Gerência Ambiental / Sustentabilidade",
+    acao:"Full Feasibility de reservas legais e APPs no Cerrado",
+    fonte:"McKinsey — potencial florestal Cerrado",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    empresa:"Bracell (RGE Group)", setor:"Papel & Celulose", servico:"ff", ticker:"Priv.",
+    prioridade:"media",
+    gatilho:"Vastas áreas florestais no BA e SP; reservas legais extensas; sem programa público de carbono estruturado",
+    razao:"Grande proprietária de terras florestais com potencial de projetos NbS não explorados",
+    contato:"Gerência Ambiental Brasil",
+    acao:"Full Feasibility de reservas legais e APPs no sul da Bahia e interior de SP",
+    fonte:"Brasilagro — setor papel e celulose",
+    fonte_url:"https://www.brasilagro.com.br/conteudo/quem-sao-as-maiores-produtoras-de-papel-e-celulose-no-pais.html"
+  },
+  {
+    empresa:"Cargill Brasil", setor:"Agronegócio / Grãos", servico:"kyc", ticker:"Priv.",
+    prioridade:"alta",
+    gatilho:"Meta desmatamento zero na cadeia de soja; compra créditos para compensar cadeia de fornecedores; pressão de clientes europeus",
+    razao:"Trader global com alto escopo 3 florestal; necessita KYC rigoroso dos créditos usados na cadeia",
+    contato:"VP de Sustentabilidade Brasil",
+    acao:"KYC dos projetos REDD+ e ARR usados para compensação de cadeia de soja",
+    fonte:"McKinsey — demanda empresarial por créditos florestais",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/all-insights/mercado-voluntario-de-carbono-tem-potencial-gigantesco-no-brasil"
+  },
+  {
+    empresa:"Bunge Brasil", setor:"Agronegócio / Grãos", servico:"kyc", ticker:"BG (NYSE)",
+    prioridade:"alta",
+    gatilho:"Meta net zero; cadeia de soja e cana com alto escopo 3; pressão regulatória EU Deforestation Regulation (EUDR)",
+    razao:"EUDR exige rastreabilidade e zero desmatamento; créditos florestais com KYC como instrumento de conformidade",
+    contato:"VP de Sustentabilidade / EUDR Lead",
+    acao:"KYC de projetos florestais para portfólio de compensação e conformidade EUDR",
+    fonte:"McKinsey — EUDR e demanda carbono",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/all-insights/mercado-voluntario-de-carbono-tem-potencial-gigantesco-no-brasil"
+  },
+  {
+    empresa:"Votorantim Cimentos", setor:"Cimento / Industrial", servico:"kyc", ticker:"Priv.",
+    prioridade:"media",
+    gatilho:"SBCE Fase 1 (cimento); meta net zero; necessidade de offsets florestais para cobrir gap de redução",
+    razao:"Cimento tem processo de emissão de CO₂ irredutível; créditos florestais de alta integridade são a principal solução de offset",
+    contato:"VP de Sustentabilidade",
+    acao:"KYC de projetos REDD+ e ARR para composição de portfólio de conformidade SBCE",
+    fonte:"SBCE proposta setorial SEMC/MF, mai/2026",
+    fonte_url:"https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/maio/ministerio-da-fazenda-apresenta-proposta-preliminar-de-cobertura-setorial-do-mercado-regulado-de-carbono"
+  },
+  {
+    empresa:"Gerdau", setor:"Ferro & Aço", servico:"kyc", ticker:"GGBR4",
+    prioridade:"media",
+    gatilho:"SBCE Fase 1; usa carvão vegetal de florestas plantadas para produção de aço — ativo florestal estratégico",
+    razao:"Única siderúrgica que usa biomassa florestal em escala; potencial de créditos via manejo florestal sustentável",
+    contato:"VP de Sustentabilidade",
+    acao:"KYC de projetos de carvão vegetal certificado; Full Feasibility de expansão florestal própria",
+    fonte:"Agência da Indústria — CNI siderurgia sustentável",
+    fonte_url:"https://noticias.portaldaindustria.com.br/noticias/sustentabilidade/industria-brasileira-faz-a-sua-parte-na-reducao-de-emissoes/"
+  },
+  {
+    empresa:"BTG Pactual (Timberland)", setor:"Setor Financeiro / Florestal", servico:"both", ticker:"BPAC11",
+    prioridade:"alta",
+    gatilho:"Maior gestor de ativos florestais da América Latina via BTG Timberland; fundo de NbS ativo",
+    razao:"Gestor e desenvolvedor de projetos florestais para venda de créditos a investidores institucionais",
+    contato:"Diretoria BTG Timberland / Área de NbS",
+    acao:"KYC de ativos florestais em portfólio; Full Feasibility de novas aquisições para o fundo",
+    fonte:"McKinsey — gestoras e ativos florestais Brasil",
+    fonte_url:"https://www.mckinsey.com/br/our-insights/posicionando-o-brasil-como-lider-global-no-mercado-de-creditos-de-carbono-por-meio-de-reflorestamento-e-protecao-de-florestas"
+  },
+  {
+    empresa:"Engie Brasil Energia", setor:"Energia / Geração", servico:"kyc", ticker:"EGIE3",
+    prioridade:"media",
+    gatilho:"Meta net zero; termelétricas a gás entram no SBCE Fase 2; compensação via créditos florestais",
+    razao:"Comprará créditos florestais de alta integridade para compensar emissões de termelétricas",
+    contato:"Gerência de Sustentabilidade",
+    acao:"KYC de projetos REDD+ e ARR para portfólio de compensação de geração térmica",
+    fonte:"SBCE proposta setorial SEMC/MF, mai/2026",
+    fonte_url:"https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/maio/ministerio-da-fazenda-apresenta-proposta-preliminar-de-cobertura-setorial-do-mercado-regulado-de-carbono"
+  },
+  {
+    empresa:"Vivo (Telefônica Brasil)", setor:"Telecomunicações", servico:"kyc", ticker:"VIVT3",
+    prioridade:"media",
+    gatilho:"Meta net zero 2025 (já declarada); compra créditos REDD+ para compensar operações",
+    razao:"Compradora ativa de créditos; NBS Brazil Alliance lista Vivo como comprador de REDD+",
+    contato:"Gerência de Sustentabilidade",
+    acao:"KYC dos projetos REDD+ em carteira; auditoria de integridade pós-escândalos do setor",
+    fonte:"NBS Brazil Alliance — lista compradores REDD+",
+    fonte_url:"https://nbsbrazilalliance.org/wp-content/uploads/2021/12/guia-para-compra-de-creditos-de-carbono-redd.pdf"
+  }
+];
+
+function svBadge(s) {
+  if (s === 'kyc')  return '<span class="badge s-kyc">Know Your Carbon</span>';
+  if (s === 'ff')   return '<span class="badge s-ff">Full Feasibility</span>';
+  return '<span class="badge s-kyc">Know Your Carbon</span>&nbsp;<span class="badge s-ff">Full Feasibility</span>';
+}
+function prioBadge(p) {
+  if (p === 'alta')  return '<span class="badge p-alta">Alta</span>';
+  if (p === 'media') return '<span class="badge p-media">Média</span>';
+  return '<span class="badge p-baixa">Baixa</span>';
+}
+
+function buildTable(data) {
+  const tbody = document.getElementById('leadsTable');
+  tbody.innerHTML = '';
+  let kyc=0, ff=0, both=0;
+  data.forEach(l => {
+    if (l.servico==='kyc') kyc++;
+    else if (l.servico==='ff') ff++;
+    else both++;
+    const main = document.createElement('tr');
+    main.dataset.servico = l.servico;
+    main.dataset.prio    = l.prioridade;
+    main.dataset.search  = (l.empresa + ' ' + l.setor).toLowerCase();
+    main.innerHTML = `
+      <td class="empresa">${l.empresa}</td>
+      <td><span class="setor-pill">${l.setor}</span></td>
+      <td>${svBadge(l.servico)}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gray-400)">${l.ticker}</td>
+      <td>${prioBadge(l.prioridade)}</td>
+      <td class="razao">${l.gatilho}</td>`;
+    const detail = document.createElement('tr');
+    detail.classList.add('detail-row');
+    detail.innerHTML = `<td colspan="6">
+      <div class="detail-inner">
+        <div class="detail-block"><strong>Gatilho florestal</strong><p>${l.razao}</p></div>
+        <div class="detail-block"><strong>Contato sugerido</strong><p>${l.contato}</p></div>
+        <div class="detail-block"><strong>Ação recomendada C2050</strong><p><span class="action-pill">${l.acao}</span></p></div>
+        <div class="detail-block"><strong>Fonte</strong><p><a class="source-link" href="${l.fonte_url}" target="_blank" rel="noopener">${l.fonte}</a></p></div>
+      </div></td>`;
+    main.addEventListener('click', () => {
+      const wasOpen = detail.classList.contains('open');
+      document.querySelectorAll('.detail-row').forEach(r => r.classList.remove('open'));
+      if (!wasOpen) detail.classList.add('open');
+    });
+    tbody.appendChild(main);
+    tbody.appendChild(detail);
+  });
+  document.getElementById('totalLeads').textContent = data.length;
+  document.getElementById('countKYC').textContent  = kyc;
+  document.getElementById('countFF').textContent   = ff;
+  document.getElementById('countBoth').textContent = both;
+  document.getElementById('countAll').textContent  = data.length;
+}
+
+buildTable(leads);
+
+document.getElementById('filters').addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  const f = e.target.dataset.filter;
+  const rows = document.querySelectorAll('#leadsTable tr:not(.detail-row)');
+  let vis=0, kyc=0, ff=0, both=0;
+  rows.forEach(row => {
+    const match = f==='all' || row.dataset.servico===f || (f==='alta' && row.dataset.prio==='alta');
+    row.classList.toggle('hidden', !match);
+    const next = row.nextElementSibling;
+    if (next && next.classList.contains('detail-row')) next.classList.remove('open');
+    if (match) {
+      vis++;
+      if (row.dataset.servico==='kyc') kyc++;
+      else if (row.dataset.servico==='ff') ff++;
+      else both++;
+    }
+  });
+  document.getElementById('totalLeads').textContent = vis;
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  const rows = document.querySelectorAll('#leadsTable tr:not(.detail-row)');
+  let vis=0;
+  rows.forEach(row => {
+    const match = !q || row.dataset.search.includes(q);
+    row.classList.toggle('hidden', !match);
+    const next = row.nextElementSibling;
+    if (next && next.classList.contains('detail-row')) next.classList.remove('open');
+    if (match) vis++;
+  });
+  document.getElementById('totalLeads').textContent = vis;
+});
+</script>
+</body>
+</html>
