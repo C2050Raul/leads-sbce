@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leads Setor Público — Climate Compliance 2050</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal-dark:   #04342C;
+    --teal-mid:    #0F6E56;
+    --teal-light:  #1D9E75;
+    --teal-pale:   #E1F5EE;
+    --blue-dark:   #185FA5;
+    --blue-mid:    #378ADD;
+    --blue-pale:   #E6F1FB;
+    --amber-dark:  #854F0B;
+    --amber-pale:  #FAEEDA;
+    --coral-dark:  #993C1D;
+    --coral-pale:  #FAECE7;
+    --green-dark:  #3B6D11;
+    --green-pale:  #EAF3DE;
+    --purple-dark: #534AB7;
+    --purple-pale: #EEEDFE;
+    --gray-50:     #F9F8F5;
+    --gray-100:    #F4F3EF;
+    --gray-200:    #E8E7E2;
+    --gray-400:    #9B9A94;
+    --gray-600:    #5F5E5A;
+    --gray-700:    #3C3B38;
+    --gray-900:    #1A1918;
+    --white:       #FFFFFF;
+    --shadow:      0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--gray-100); color: var(--gray-900); min-height: 100vh; }
+
+  /* HEADER */
+  .header { background: var(--teal-dark); padding: 2rem 2.5rem 1.75rem; border-bottom: 3px solid var(--teal-light); }
+  .header-inner { max-width: 1200px; margin: 0 auto; }
+  .header-tag { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-light); margin-bottom: 8px; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+  .header-meta { margin-top: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .header-meta span { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.4); }
+  .header-meta strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+  .header-pills { margin-top: 1rem; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header-pill { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.65); }
+  .header-pill.redd  { border-color: #5DCAA5; color: #5DCAA5; }
+  .header-pill.rsus  { border-color: #85B7EB; color: #85B7EB; }
+  .header-pill.cons  { border-color: #FAC775; color: #FAC775; }
+
+  /* MAIN */
+  .main { max-width: 1200px; margin: 0 auto; padding: 2rem 2.5rem 4rem; }
+
+  /* STATS */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.75rem; }
+  .stat { background: var(--white); border-radius: 10px; padding: 1rem 1.25rem; box-shadow: var(--shadow); border-top: 3px solid var(--gray-200); }
+  .stat.s-total  { border-top-color: var(--teal-mid); }
+  .stat.s-redd   { border-top-color: var(--teal-light); }
+  .stat.s-rsus   { border-top-color: var(--blue-dark); }
+  .stat.s-cons   { border-top-color: var(--amber-dark); }
+  .stat-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray-400); margin-bottom: 6px; }
+  .stat-value { font-size: 28px; font-weight: 600; color: var(--gray-900); line-height: 1; margin-bottom: 4px; }
+  .stat.s-redd .stat-value { color: var(--teal-mid); }
+  .stat.s-rsus .stat-value { color: var(--blue-dark); }
+  .stat.s-cons .stat-value { color: var(--amber-dark); }
+  .stat-sub { font-size: 12px; color: var(--gray-400); }
+
+  /* CONTROLS */
+  .controls-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+  .search-wrap { flex: 1; min-width: 200px; }
+  .search-wrap input { width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; padding: 8px 14px; border: 1.5px solid var(--gray-200); border-radius: 8px; background: var(--white); color: var(--gray-900); outline: none; transition: border-color 0.15s; }
+  .search-wrap input:focus { border-color: var(--teal-light); }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; padding: 6px 14px; border: 1.5px solid var(--gray-200); border-radius: 20px; background: var(--white); color: var(--gray-400); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .filter-btn:hover { border-color: var(--teal-light); color: var(--teal-mid); }
+  .filter-btn.active { background: var(--teal-mid); border-color: var(--teal-mid); color: var(--white); }
+
+  /* TABLE */
+  .table-card { background: var(--white); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--gray-100); border-bottom: 1.5px solid var(--gray-200); }
+  thead th { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); padding: 10px 14px; text-align: left; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid var(--gray-200); cursor: pointer; transition: background 0.1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--teal-pale); }
+  tbody tr.hidden { display: none; }
+  td { padding: 10px 14px; color: var(--gray-700); vertical-align: middle; }
+  td.player { font-weight: 600; color: var(--gray-900); max-width: 200px; }
+  td.servicos { font-size: 12px; color: var(--gray-400); max-width: 240px; }
+
+  /* BADGES */
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; font-family: 'DM Mono', monospace; letter-spacing: 0.02em; }
+  .g-redd   { background: var(--teal-pale);   color: var(--teal-mid); }
+  .g-rsus   { background: var(--blue-pale);   color: var(--blue-dark); }
+  .g-cons   { background: var(--amber-pale);  color: var(--amber-dark); }
+  .p-alta   { background: var(--coral-pale);  color: var(--coral-dark); }
+  .p-media  { background: var(--amber-pale);  color: var(--amber-dark); }
+  .p-baixa  { background: var(--green-pale);  color: var(--green-dark); }
+  .e-avancado    { background: var(--teal-pale);   color: var(--teal-mid); }
+  .e-estruturando { background: var(--blue-pale);  color: var(--blue-dark); }
+  .e-inicial     { background: var(--amber-pale);  color: var(--amber-dark); }
+
+  /* DETAIL ROW */
+  .detail-row { display: none; }
+  .detail-row.open { display: table-row; }
+  .detail-row td { background: var(--gray-50); padding: 14px 16px 16px; border-bottom: 1.5px solid var(--gray-200); }
+  .detail-inner { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+  .detail-block strong { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); margin-bottom: 4px; }
+  .detail-block p { font-size: 12.5px; color: var(--gray-700); line-height: 1.5; }
+  .detail-block .action-pill { display: inline-block; background: var(--teal-pale); color: var(--teal-dark); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; margin-top: 2px; }
+  .detail-block .pot-pill { display: inline-block; background: var(--purple-pale); color: var(--purple-dark); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; margin-top: 2px; font-family: 'DM Mono', monospace; }
+
+  /* FOOTER */
+  .footer { margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--white); border-radius: 10px; border-left: 3px solid var(--teal-mid); font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+  .footer strong { color: var(--gray-700); }
+
+  .count-pill { display: inline-block; background: var(--teal-pale); color: var(--teal-mid); font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 2px 10px; border-radius: 20px; margin-left: 6px; }
+
+  .section-divider { margin: 0; padding: 8px 14px; background: var(--gray-100); border-bottom: 1px solid var(--gray-200); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-400); }
+
+  @media (max-width: 900px) {
+    .main { padding: 1rem 1rem 3rem; }
+    .header { padding: 1.5rem 1rem; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .detail-inner { grid-template-columns: 1fr 1fr; }
+    td.servicos { display: none; }
+  }
+  @media (max-width: 600px) {
+    .detail-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-tag">Climate Compliance 2050 — Inteligência Comercial · Setor Público</div>
+    <h1>Mapeamento de Leads — Setor Público</h1>
+    <div class="header-sub">Estados, Consórcios Intermunicipais e Consórcios Públicos Estaduais — prospecção C2050</div>
+    <div class="header-pills">
+      <span class="header-pill redd">Grupo 1 · Estados REDD+ Jurisdicional</span>
+      <span class="header-pill rsus">Grupo 2 · Consórcios de Resíduos Sólidos</span>
+      <span class="header-pill cons">Grupo 3 · Consórcios Estaduais</span>
+    </div>
+    <div class="header-meta">
+      <span>Fonte: <strong>EII, SEMC/MF, SEMA-AM, Agência Brasil</strong></span>
+      <span>Lei: <strong>Lei nº 15.042/2024 · Lei 14.133/2021</strong></span>
+      <span>Atualizado: <strong>Junho 2026</strong></span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="stats">
+    <div class="stat s-total">
+      <div class="stat-label">Total de leads</div>
+      <div class="stat-value" id="totalLeads">27</div>
+      <div class="stat-sub">players públicos mapeados</div>
+    </div>
+    <div class="stat s-redd">
+      <div class="stat-label">Estados REDD+</div>
+      <div class="stat-value">9</div>
+      <div class="stat-sub">ofertantes de CRVEs</div>
+    </div>
+    <div class="stat s-rsus">
+      <div class="stat-label">Consórcios Resíduos</div>
+      <div class="stat-value">10</div>
+      <div class="stat-sub">emissores de metano</div>
+    </div>
+    <div class="stat s-cons">
+      <div class="stat-label">Consórcios Estaduais</div>
+      <div class="stat-value">8</div>
+      <div class="stat-sub">energia, transp. e desenvolvimento</div>
+    </div>
+  </div>
+
+  <div class="controls-bar">
+    <div class="search-wrap">
+      <input type="search" id="searchInput" placeholder="Buscar player ou estado..." aria-label="Buscar player ou estado">
+    </div>
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">Todos <span class="count-pill" id="countAll">27</span></button>
+      <button class="filter-btn" data-filter="redd">REDD+ Jurisdicional</button>
+      <button class="filter-btn" data-filter="rsus">Consórcios Resíduos</button>
+      <button class="filter-btn" data-filter="cons">Consórcios Estaduais</button>
+      <button class="filter-btn" data-filter="alta">Prioridade Alta</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>UF / Região</th>
+            <th>Grupo</th>
+            <th>Estágio</th>
+            <th>Prioridade</th>
+            <th class="servicos">Serviços aplicáveis</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Metodologia:</strong> Players selecionados com base em programas REDD+ Jurisdicional ativos ou em estruturação (fonte: Earth Innovation Institute, SEMA-AM, Agência Brasil), consórcios de resíduos sólidos com aterros operacionais e potencial de créditos de metano, e consórcios estaduais com programas climáticos identificados. Ciclo de contratação via licitação (Lei 14.133/2021). <strong>Nota [Inference]:</strong> potenciais financeiros são estimativas de mercado — não garantidos. Clique em qualquer linha para detalhes.
+  </div>
+
+</div>
+
+<script>
+const leads = [
+  // ── GRUPO 1: ESTADOS REDD+ ──────────────────────────────────────────────
+  {
+    player: "Governo do Pará", uf: "PA", grupo: "redd", estagio: "avancado",
+    prioridade: "alta", pot: "US$ 3,5 bi",
+    servicos: "Due diligence REDD+ jurisdicional, estruturação CRVEs, KYC regulatório",
+    razao: "Estado mais avançado da Amazônia Legal; maior potencial financeiro estimado",
+    contato: "SEMAS-PA (Secretaria de Meio Ambiente e Sustentabilidade)",
+    acao: "Prospecção imediata — pagamentos previstos a partir de 2026"
+  },
+  {
+    player: "Governo do Mato Grosso", uf: "MT", grupo: "redd", estagio: "avancado",
+    prioridade: "alta", pot: "US$ 2,0 bi",
+    servicos: "Due diligence REDD+, inventário GEE estadual, CRVEs, KYC",
+    razao: "Legislação própria em vigor; 2º maior potencial da Amazônia Legal",
+    contato: "SEMA-MT (Secretaria de Estado de Meio Ambiente)",
+    acao: "Prospecção imediata — legislação estadual já aprovada"
+  },
+  {
+    player: "Governo de Rondônia", uf: "RO", grupo: "redd", estagio: "avancado",
+    prioridade: "alta", pot: "US$ 1,7 bi",
+    servicos: "Estruturação JREDD+, inventário GEE, CRVEs, conformidade SBCE",
+    razao: "3º maior potencial; regulamentação em curso para emissão de créditos já em 2026",
+    contato: "SEDAM (Secretaria de Estado do Desenvolvimento Ambiental)",
+    acao: "Prospecção imediata — janela de regulamentação aberta"
+  },
+  {
+    player: "Governo do Tocantins", uf: "TO", grupo: "redd", estagio: "avancado",
+    prioridade: "alta", pot: "—",
+    servicos: "Verificação MRV, auditoria CRVEs, due diligence contrato Mercuria",
+    razao: "Contrato assinado com Mercuria Energy Group (R$20 mi); precisa de suporte técnico de verificação",
+    contato: "NATURATINS (Instituto Natureza do Tocantins)",
+    acao: "Entrada por verificação e auditoria do contrato em curso"
+  },
+  {
+    player: "Governo do Acre", uf: "AC", grupo: "redd", estagio: "avancado",
+    prioridade: "alta", pot: "—",
+    servicos: "Due diligence REDD+, inventário GEE, atualização CRVEs pós-SBCE",
+    razao: "Pioneiro histórico em REDD+ no Brasil; precisa atualizar framework para o novo marco da Lei 15.042",
+    contato: "SEMA-AC (Secretaria de Estado de Meio Ambiente)",
+    acao: "Atualização do framework voluntário para regulado SBCE"
+  },
+  {
+    player: "Governo do Amazonas", uf: "AM", grupo: "redd", estagio: "estruturando",
+    prioridade: "alta", pot: "—",
+    servicos: "Estruturação CRVEs, due diligence Amazonas 2030, parcerias PPP em UCs",
+    razao: "Único sistema misto REDD+ do Brasil (jurisdicional + projetos em UCs); Programa Amazonas 2030 ativo",
+    contato: "SEMA-AM (Secretaria de Estado do Meio Ambiente)",
+    acao: "Suporte estrutural ao Programa Amazonas 2030"
+  },
+  {
+    player: "Governo do Mato Grosso do Sul", uf: "MS", grupo: "redd", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário GEE estadual, estruturação REDD+, conformidade SBCE",
+    razao: "Apoio técnico do EII em curso; Cerrado — bioma com alto potencial de créditos de remoção",
+    contato: "IMASUL (Instituto de Meio Ambiente de MS)",
+    acao: "Prospecção Q3/Q4 2026 — fase de estruturação"
+  },
+  {
+    player: "Governo de Goiás", uf: "GO", grupo: "redd", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário GEE estadual, estruturação REDD+, KYC regulatório",
+    razao: "Apoio técnico do EII em curso; Cerrado — segundo maior bioma do Brasil",
+    contato: "SEMAD-GO (Secretaria de Meio Ambiente e Desenvolvimento Sustentável)",
+    acao: "Prospecção Q3/Q4 2026"
+  },
+  {
+    player: "Governo do Maranhão", uf: "MA", grupo: "redd", estagio: "inicial",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário GEE estadual, legislação REDD+, estruturação inicial",
+    razao: "Legislação básica elaborada; estado com alta taxa de desmatamento no Cerrado e Amazônia",
+    contato: "SEMA-MA (Secretaria de Estado de Meio Ambiente)",
+    acao: "Prospecção 2027 — fase legislativa"
+  },
+
+  // ── GRUPO 2: CONSÓRCIOS DE RESÍDUOS ─────────────────────────────────────
+  {
+    player: "CONRESOL", uf: "PR", grupo: "rsus", estagio: "avancado",
+    prioridade: "alta", pot: "420 mil tCO₂/ano",
+    servicos: "Inventário metano, MRV aterro, créditos resíduos, parceria CDR cimenteiras",
+    razao: "Maior consórcio de RSU do Sul; já opera parceria com cimenteiras para CDR; potencial de 420 mil tCO₂/ano",
+    contato: "Secretaria Executiva do CONRESOL — Curitiba/PR",
+    acao: "Prospecção imediata — parceria carbono já em discussão interna"
+  },
+  {
+    player: "CIGRES", uf: "RS", grupo: "rsus", estagio: "avancado",
+    prioridade: "alta", pot: "—",
+    servicos: "Inventário metano, MRV aterro, estruturação créditos resíduos",
+    razao: "31 municípios do noroeste gaúcho; plano de gestão atualizado; estrutura consolidada",
+    contato: "Secretaria Executiva do CIGRES — Frederico Westphalen/RS",
+    acao: "Prospecção Q3 2026"
+  },
+  {
+    player: "CISPAR", uf: "MG", grupo: "rsus", estagio: "avancado",
+    prioridade: "alta", pot: "—",
+    servicos: "Estruturação créditos carbono, biogás, MRV, inventário GEE",
+    razao: "Já explora créditos de carbono e biogás como fonte de receita; janela comercial aberta",
+    contato: "Secretaria Executiva do CISPAR — Patos de Minas/MG",
+    acao: "Prospecção imediata — interesse declarado em carbono"
+  },
+  {
+    player: "CIGIRS", uf: "GO", grupo: "rsus", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário metano, MRV aterro, conformidade SBCE resíduos",
+    razao: "Consórcio regional goiano ativo; aterro operacional com potencial de captura de metano",
+    contato: "Secretaria Executiva do CIGIRS — Goiás",
+    acao: "Prospecção Q4 2026"
+  },
+  {
+    player: "CIMVALPI", uf: "MG", grupo: "rsus", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "MRV, inventário GEE, estruturação créditos resíduos",
+    razao: "Acordo com MMA para usina de triagem; habilitado a receber apoio federal",
+    contato: "Secretaria Executiva do CIMVALPI — Ponte Nova/MG",
+    acao: "Prospecção Q4 2026 — pós-habilitação MMA"
+  },
+  {
+    player: "CODANORTE", uf: "MG", grupo: "rsus", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "MRV, inventário GEE, estruturação créditos resíduos",
+    razao: "Dois projetos habilitados pelo MMA; norte de Minas com alta geração de RSU",
+    contato: "Secretaria Executiva do CODANORTE — Januária/MG",
+    acao: "Prospecção Q4 2026"
+  },
+  {
+    player: "CORESAB", uf: "MG", grupo: "rsus", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário GEE, MRV integrado saneamento + resíduos",
+    razao: "Saneamento básico + resíduos integrados; central de Minas com crescimento urbano",
+    contato: "Secretaria Executiva do CORESAB — Felixlândia/MG",
+    acao: "Prospecção Q4 2026"
+  },
+  {
+    player: "CIMME", uf: "MG", grupo: "rsus", estagio: "inicial",
+    prioridade: "baixa", pot: "—",
+    servicos: "MRV básico, inventário GEE, orientação conformidade",
+    razao: "Habilitado pelo MMA; Médio Espinhaço; aterro em implantação",
+    contato: "Secretaria Executiva do CIMME — Conceição do Mato Dentro/MG",
+    acao: "Prospecção 2027 — aterro em implantação"
+  },
+  {
+    player: "CIDERSOP", uf: "PR", grupo: "rsus", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário metano, biogás, MRV, créditos resíduos",
+    razao: "9 municípios do oeste do PR; busca empresa de biocombustíveis — janela de entrada via carbono",
+    contato: "Secretaria Executiva do CIDERSOP — Paraná",
+    acao: "Prospecção Q3 2026 — estruturação biogás em curso"
+  },
+  {
+    player: "CICA (Caiuá Ambiental)", uf: "PR", grupo: "rsus", estagio: "estruturando",
+    prioridade: "baixa", pot: "—",
+    servicos: "MRV básico, inventário GEE, estruturação créditos",
+    razao: "Noroeste do PR; expansão de 19 para 27 municípios; coleta seletiva em expansão",
+    contato: "Secretaria Executiva do CICA — Paranavaí/PR",
+    acao: "Prospecção 2027 — expansão em curso"
+  },
+  {
+    player: "Consórcio Intermunicipal Grande ABC", uf: "SP", grupo: "rsus", estagio: "avancado",
+    prioridade: "alta", pot: "—",
+    servicos: "Inventário GEE, MRV, créditos metano, conformidade SBCE Fase 2",
+    razao: "Maior região metropolitana fora de SP capital; alto volume RSU; experiência em projetos ambientais integrados",
+    contato: "Secretaria Executiva do Grande ABC — Santo André/SP",
+    acao: "Prospecção imediata — perfil técnico avançado"
+  },
+
+  // ── GRUPO 3: CONSÓRCIOS ESTADUAIS ───────────────────────────────────────
+  {
+    player: "Consórcio Nordeste (9 estados)", uf: "NE", grupo: "cons", estagio: "estruturando",
+    prioridade: "alta", pot: "—",
+    servicos: "Inventário GEE regional, estratégia carbono, capacitação técnica, KYC SBCE",
+    razao: "Maior consórcio público do Brasil (AL, BA, CE, MA, PB, PE, PI, RN, SE); agenda climática ativa pós-COP30",
+    contato: "Secretaria Executiva do Consórcio Nordeste",
+    acao: "Entrada via agenda COP30 (Belém/2025) e NDC brasileira"
+  },
+  {
+    player: "COSIPAR (Consórcio Intermunicipal do Paranapanema)", uf: "SP/PR", grupo: "cons", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário GEE, MRV, estruturação créditos de natureza",
+    razao: "Bacia hidrográfica do Paranapanema; potencial de NBS e restauração florestal",
+    contato: "Secretaria Executiva do COSIPAR",
+    acao: "Prospecção Q4 2026"
+  },
+  {
+    player: "Consórcio PCJ (Piracicaba, Capivari e Jundiaí)", uf: "SP/MG", grupo: "cons", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário GEE, MRV hídrico, créditos de água e carbono",
+    razao: "Gestão de bacias hidrográficas; conexão entre carbono e segurança hídrica",
+    contato: "Secretaria Executiva do Consórcio PCJ — Piracicaba/SP",
+    acao: "Prospecção Q4 2026 — nexo água-carbono"
+  },
+  {
+    player: "AGEM (Agência Metropolitana da Baixada Santista)", uf: "SP", grupo: "cons", estagio: "inicial",
+    prioridade: "baixa", pot: "—",
+    servicos: "Inventário GEE transporte e resíduos, MRV, conformidade SBCE Fase 3",
+    razao: "Região portuária + frota de transporte; emissões de escopo 1 e 3 relevantes",
+    contato: "Diretoria Executiva da AGEM — Santos/SP",
+    acao: "Prospecção 2027 — Fase 3 transporte"
+  },
+  {
+    player: "AGEMCAMP (Ag. Metropolitana de Campinas)", uf: "SP", grupo: "cons", estagio: "inicial",
+    prioridade: "baixa", pot: "—",
+    servicos: "Inventário GEE, MRV, conformidade SBCE",
+    razao: "Região metropolitana com polo industrial; emissões industriais relevantes",
+    contato: "Diretoria Executiva da AGEMCAMP — Campinas/SP",
+    acao: "Prospecção 2027"
+  },
+  {
+    player: "GRANBEL (Grande Belo Horizonte)", uf: "MG", grupo: "cons", estagio: "estruturando",
+    prioridade: "media", pot: "—",
+    servicos: "Inventário GEE metropolitano, MRV, RSU e transporte",
+    razao: "RMBH com alta densidade industrial e logística; Fase 2 e 3 SBCE",
+    contato: "Secretaria Executiva do GRANBEL — Belo Horizonte/MG",
+    acao: "Prospecção Q4 2026"
+  },
+  {
+    player: "CONDIAM (Consórcio Intermunicipal de Saúde e Meio Ambiente)", uf: "RJ", grupo: "cons", estagio: "inicial",
+    prioridade: "baixa", pot: "—",
+    servicos: "MRV básico, inventário GEE, conformidade SBCE",
+    razao: "Interior fluminense; consorciamento saúde + meio ambiente cria oportunidade ESG integrada",
+    contato: "Secretaria Executiva do CONDIAM — Rio de Janeiro",
+    acao: "Prospecção 2027"
+  },
+  {
+    player: "Fundo Amazônia / BNDES (operador)", uf: "Nacional", grupo: "cons", estagio: "avancado",
+    prioridade: "alta", pot: "US$ 1,4 bi acumulado",
+    servicos: "Due diligence projetos REDD+, KYC doadores, verificação MRV, laudos técnicos",
+    razao: "Principal fundo público de carbono florestal do Brasil; opera como intermediário entre estados e compradores internacionais",
+    contato: "Área Socioambiental do BNDES",
+    acao: "Entrada como prestador de verificação técnica independente"
+  }
+];
+
+function grupoBadge(g) {
+  if (g === 'redd') return '<span class="badge g-redd">REDD+ Jurisdicional</span>';
+  if (g === 'rsus') return '<span class="badge g-rsus">Consórcio Resíduos</span>';
+  return '<span class="badge g-cons">Consórcio Estadual</span>';
+}
+function estagBadge(e) {
+  if (e === 'avancado')     return '<span class="badge e-avancado">Avançado</span>';
+  if (e === 'estruturando') return '<span class="badge e-estruturando">Estruturando</span>';
+  return '<span class="badge e-inicial">Inicial</span>';
+}
+function prioBadge(p) {
+  if (p === 'alta')  return '<span class="badge p-alta">Alta</span>';
+  if (p === 'media') return '<span class="badge p-media">Média</span>';
+  return '<span class="badge p-baixa">Baixa</span>';
+}
+
+function buildTable(data) {
+  const tbody = document.getElementById('leadsTable');
+  tbody.innerHTML = '';
+  data.forEach(l => {
+    const main = document.createElement('tr');
+    main.dataset.grupo = l.grupo;
+    main.dataset.prio  = l.prioridade;
+    main.dataset.search = (l.player + ' ' + l.uf).toLowerCase();
+    main.innerHTML = `
+      <td class="player">${l.player}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px;font-weight:500">${l.uf}</td>
+      <td>${grupoBadge(l.grupo)}</td>
+      <td>${estagBadge(l.estagio)}</td>
+      <td>${prioBadge(l.prioridade)}</td>
+      <td class="servicos">${l.servicos}</td>`;
+    const detail = document.createElement('tr');
+    detail.classList.add('detail-row');
+    detail.innerHTML = `<td colspan="6">
+      <div class="detail-inner">
+        <div class="detail-block"><strong>Potencial financeiro</strong><p><span class="pot-pill">${l.pot || 'A estimar'}</span></p></div>
+        <div class="detail-block"><strong>Razão de inclusão</strong><p>${l.razao}</p></div>
+        <div class="detail-block"><strong>Contato sugerido</strong><p>${l.contato}</p></div>
+        <div class="detail-block"><strong>Ação recomendada</strong><p><span class="action-pill">${l.acao}</span></p></div>
+      </div></td>`;
+    main.addEventListener('click', () => {
+      const wasOpen = detail.classList.contains('open');
+      document.querySelectorAll('.detail-row').forEach(r => r.classList.remove('open'));
+      if (!wasOpen) detail.classList.add('open');
+    });
+    tbody.appendChild(main);
+    tbody.appendChild(detail);
+  });
+  document.getElementById('totalLeads').textContent = data.length;
+  document.getElementById('countAll').textContent   = data.length;
+}
+
+buildTable(leads);
+
+document.getElementById('filters').addEventListener('click', e => {
+  if (!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  const f = e.target.dataset.filter;
+  const rows = document.querySelectorAll('#leadsTable tr:not(.detail-row)');
+  let vis = 0;
+  rows.forEach(row => {
+    const match = f === 'all'
+      || row.dataset.grupo === f
+      || (f === 'alta' && row.dataset.prio === 'alta');
+    row.classList.toggle('hidden', !match);
+    const next = row.nextElementSibling;
+    if (next && next.classList.contains('detail-row')) next.classList.remove('open');
+    if (match) vis++;
+  });
+  document.getElementById('totalLeads').textContent = vis;
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  const rows = document.querySelectorAll('#leadsTable tr:not(.detail-row)');
+  let vis = 0;
+  rows.forEach(row => {
+    const match = !q || row.dataset.search.includes(q);
+    row.classList.toggle('hidden', !match);
+    const next = row.nextElementSibling;
+    if (next && next.classList.contains('detail-row')) next.classList.remove('open');
+    if (match) vis++;
+  });
+  document.getElementById('totalLeads').textContent = vis;
+});
+</script>
+</body>
+</html>
